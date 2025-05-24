@@ -10,32 +10,36 @@
   #depressionTest, #result {
     display: none;
   }
+  /* Можно добавить стили для внешнего вида */
 </style>
 </head>
 <body>
+
+<!-- Инструкция -->
 <div id="instructionSection">
   <h1>Тест по шкале депрессии Бека</h1>  
-  <h1>Инструкция</h1>
-  <p> В этом опроснике содержатся группы утверждений. Внимательно прочитайте каждую группу утверждений. Затем определите в каждой группе одно
-утверждение, которое лучше всего соответствует тому, как Вы себя чувствовали НА
-ЭТОЙ НЕДЕЛЕ И СЕГОДНЯ. Поставьте галочку около выбранного утверждения. Если
-несколько утверждений из одной группы кажутся Вам одинаково хорошо подходящими,
-то поставьте галочки около каждого из них. Прежде, чем сделать свой выбор,
-убедитесь, что Вы прочли все утверждения в каждой группе</p>
+  <h2>Инструкция</h2>
+  <p>
+    В этом опроснике содержатся группы утверждений. Внимательно прочитайте каждую группу утверждений. Затем определите в каждой группе одно
+    утверждение, которое лучше всего соответствует тому, как Вы себя чувствовали НА ЭТОЙ НЕДЕЛЕ И СЕГОДНЯ. Поставьте галочку около выбранного утверждения.
+    Если несколько утверждений из одной группы кажутся Вам одинаково хорошо подходящими, то поставьте галочки около каждого из них. Перед тем как сделать свой выбор,
+    убедитесь, что Вы прочли все утверждения в каждой группе.
+  </p>
   <button onclick="startTest()">Начать тестирование</button>
 </div>
 
+<!-- Форма теста -->
 <div class="test-container">
   <form id="depressionTest">
     <h1>Тест по шкале депрессии Бека</h1>
-    <!-- Вопросы тут (оставляете как есть) -->
-    <!-- ... (ваши вопросы) ... -->
- <div class="question">
+    
+    <!-- Вопрос 1 -->
+    <div class="question">
       <h3>1. Я чувствовал(а) себя подавленным(ой) или грустным(ой):</h3>
       <div class="answers">
-        <label><input type="radio" name="q1" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q1" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q1" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q1" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q1" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q1" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q1" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -44,9 +48,9 @@
     <div class="question">
       <h3>2. Я чувствовал(а) усталость или потерю энергии:</h3>
       <div class="answers">
-        <label><input type="radio" name="q2" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q2" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q2" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q2" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q2" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q2" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q2" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -55,9 +59,9 @@
     <div class="question">
       <h3>3. Я испытывал(а) чувство безнадежности:</h3>
       <div class="answers">
-        <label><input type="radio" name="q3" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q3" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q3" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q3" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q3" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q3" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q3" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -66,9 +70,9 @@
     <div class="question">
       <h3>4. Я испытывал(а) снижение аппетита или переедание:</h3>
       <div class="answers">
-        <label><input type="radio" name="q4" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q4" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q4" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q4" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q4" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q4" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q4" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -77,19 +81,20 @@
     <div class="question">
       <h3>5. Я чувствовал(а) плохое настроение или уныние:</h3>
       <div class="answers">
-        <label><input type="radio" name="q5" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q5" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q5" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q5" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q5" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q5" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q5" value="3" /> Почти каждый день</label>
       </div>
     </div>
+
     <!-- Вопрос 6 -->
     <div class="question">
       <h3>6. Я испытывал(а) трудности с концентрацией внимания:</h3>
       <div class="answers">
-        <label><input type="radio" name="q6" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q6" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q6" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q6" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q6" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q6" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q6" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -98,9 +103,9 @@
     <div class="question">
       <h3>7. Я чувствовал(а) тревогу или нервозность:</h3>
       <div class="answers">
-        <label><input type="radio" name="q7" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q7" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q7" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q7" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q7" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q7" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q7" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -109,9 +114,9 @@
     <div class="question">
       <h3>8. Я чувствовал(а) потерю интереса к деятельности:</h3>
       <div class="answers">
-        <label><input type="radio" name="q8" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q8" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q8" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q8" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q8" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q8" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q8" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -120,9 +125,9 @@
     <div class="question">
       <h3>9. Я чувствовал(а) раздражение или злость:</h3>
       <div class="answers">
-        <label><input type="radio" name="q9" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q9" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q9" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q9" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q9" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q9" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q9" value="3" /> Почти каждый день</label>
       </div>
     </div>
@@ -131,41 +136,41 @@
     <div class="question">
       <h3>10. Я чувствовал(а) чувство вины или никчемности:</h3>
       <div class="answers">
-        <label><input type="radio" name="q10" value="0" required /> Не испытывал(а)</label>
-        <label><input type="radio" name="q10" value="1" /> Несколько дней</label>
-        <label><input type="radio" name="q10" value="2" /> Более половины дней</label>
+        <label><input type="radio" name="q10" value="0" required /> Не испытывал(а)</label><br>
+        <label><input type="radio" name="q10" value="1" /> Несколько дней</label><br>
+        <label><input type="radio" name="q10" value="2" /> Более половины дней</label><br>
         <label><input type="radio" name="q10" value="3" /> Почти каждый день</label>
       </div>
     </div>
+
+    <!-- Кнопка для завершения -->
     <button type="submit">Завершить тест</button>
   </form>
 </div>
 
+<!-- Скрипт для подсчета результата -->
 <script>
-function startTest() {
-  document.getElementById('instructionSection').style.display = 'none';
-  document.getElementById('depressionTest').style.display = 'block';
-}
-
-// Обработка отправки формы
-document.getElementById('depressionTest').addEventListener('submit', function(e) {
-  e.preventDefault();
-  let totalScore = 0;
-  for (let i = 1; i <= 5; i++) {
-    const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
-    if (answers.length > 0) {
-      totalScore += parseInt(answers[0].value);
-    }
+  function startTest() {
+    document.getElementById('instructionSection').style.display = 'none';
+    document.getElementById('depressionTest').style.display = 'block';
   }
-  alert('Ваш результат: ' + totalScore);
-  // Можно добавить отображение результата или переход на другую страницу
-});
+
+  document.getElementById('depressionTest').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let totalScore = 0;
+    // Вопросов всего 10, цикл по ним
+    for (let i = 1; i <= 10; i++) {
+      const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
+      if (answers.length > 0) {
+        totalScore += parseInt(answers[0].value);
+      } else {
+        alert(`Пожалуйста, ответьте на вопрос ${i}`);
+        return;
+      }
+    }
+    alert('Ваш результат: ' + totalScore);
+  });
 </script>
-</body>
-</html>
-
 
 </body>
 </html>
-
-
