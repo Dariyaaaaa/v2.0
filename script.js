@@ -10,7 +10,31 @@ function login() {
     alert('Пожалуйста, введите логин и пароль.');
   }
 }
+// Функция для начала теста
+function startTest() {
+  document.getElementById('instructionSection').style.display = 'none';
+  document.getElementById('depressionTest').style.display = 'block';
+}
 
+// Обработка формы
+document.getElementById('testForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // чтобы не перезагружать страницу
+  let totalScore = 0;
+
+  // Проходим по всем вопросам
+  for (let i = 1; i <= 10; i++) {
+    const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
+    if (answers.length > 0) {
+      totalScore += parseInt(answers[0].value);
+    } else {
+      alert(`Пожалуйста, ответьте на вопрос ${i}`);
+      return;
+    }
+  }
+
+  // Передача результата через URL
+  window.location.href = `result.html?score=${totalScore}`;
+});
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
