@@ -147,18 +147,11 @@
     <button type="submit">Завершить тест</button>
   </form>
 </div>
-
-<!-- Скрипт для подсчета результата -->
+<div id="result" style="display:none; margin-top:20px;"></div>
 <script>
-  function startTest() {
-    document.getElementById('instructionSection').style.display = 'none';
-    document.getElementById('depressionTest').style.display = 'block';
-  }
-
   document.getElementById('depressionTest').addEventListener('submit', function(e) {
     e.preventDefault();
     let totalScore = 0;
-    // Вопросов всего 10, цикл по ним
     for (let i = 1; i <= 10; i++) {
       const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
       if (answers.length > 0) {
@@ -168,7 +161,10 @@
         return;
       }
     }
-    alert('Ваш результат: ' + totalScore);
+    // Вывод результата на страницу
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<h3>Ваш результат: ' + totalScore + '</h3>';
+    resultDiv.style.display = 'block';
   });
 </script>
 
