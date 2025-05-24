@@ -77,7 +77,10 @@ h1 {
   font-size: 20px;
 }
 /* ВЫБОР ТЕСТА 2 СТРАНИЦА */
-
+/* Изначально скрываем форму теста и блок с результатом */
+ИНСТРУКЦИЯ И ТЕСТ 
+#depressionTest { display: none; }
+#result { display: none; margin-top: 20px; }
 
 
 
