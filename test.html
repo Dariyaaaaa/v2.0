@@ -167,19 +167,13 @@
       if (answers.length > 0) {
         totalScore += parseInt(answers[0].value);
       } else {
-        alert(`Пожалуйста, ответьте на вопрос ${i}`);
-        return; // если есть незаполненный вопрос, остановить
+       alert(`Пожалуйста, ответьте на вопрос ${i}`);
+        return;
       }
     }
-
-    // Вывод результата
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<h3>Ваш результат: ' + totalScore + '</h3>';
-    resultDiv.style.display = 'block';
-
-    // Можно добавить дополнительные действия, например, отправку результатов на сервер
+    // Передача результата через URL
+    window.location.href = `result.html?score=${totalScore}`;
   });
 </script>
-
 </body>
 </html>
