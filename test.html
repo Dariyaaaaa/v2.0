@@ -4,35 +4,32 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Тест Шкала депрессии Бека</title>
-<link rel="stylesheet" href="styles.css" />
 <style>
-  /* Стили для скрытия разделов */
-  #depressionTest, #result {
-    display: none;
-  }
-  /* Можно добавить стили для внешнего вида */
+  /* Изначально скрываем форму теста и блок с результатом */
+  #depressionTest { display: none; }
+  #result { display: none; margin-top: 20px; }
 </style>
 </head>
 <body>
 
-<!-- Инструкция -->
+<!-- Инструкция и кнопка начала теста -->
 <div id="instructionSection">
   <h1>Тест по шкале депрессии Бека</h1>  
   <h2>Инструкция</h2>
   <p>
-    В этом опроснике содержатся группы утверждений. Внимательно прочитайте каждую группу утверждений. Затем определите в каждой группе одно
-    утверждение, которое лучше всего соответствует тому, как Вы себя чувствовали НА ЭТОЙ НЕДЕЛЕ И СЕГОДНЯ. Поставьте галочку около выбранного утверждения.
-    Если несколько утверждений из одной группы кажутся Вам одинаково хорошо подходящими, то поставьте галочки около каждого из них. Перед тем как сделать свой выбор,
-    убедитесь, что Вы прочли все утверждения в каждой группе.
+    В этом опроснике содержатся группы утверждений. Внимательно прочитайте каждую группу утверждений.
+    Затем определите в каждой группе одно утверждение, которое лучше всего соответствует тому, как Вы себя чувствовали
+    НА ЭТОЙ НЕДЕЛЕ И СЕГОДНЯ. Поставьте галочку около выбранного утверждения. Если несколько утверждений из одной группы
+    кажутся Вам одинаково хорошо подходящими, то поставьте галочки около каждого из них.
+    Перед тем как сделать свой выбор, убедитесь, что Вы прочли все утверждения в каждой группе.
   </p>
   <button onclick="startTest()">Начать тестирование</button>
 </div>
 
 <!-- Форма теста -->
-<div class="test-container">
-  <form id="depressionTest">
-    <h1>Тест по шкале депрессии Бека</h1>
-    
+<div id="depressionTest">
+  <h1>Тест по шкале депрессии Бека</h1>
+  <form id="testForm">
     <!-- Вопрос 1 -->
     <div class="question">
       <h3>1. Я чувствовал(а) себя подавленным(ой) или грустным(ой):</h3>
@@ -143,28 +140,44 @@
       </div>
     </div>
 
-    <!-- Кнопка для завершения -->
+    <!-- Кнопка завершения -->
     <button type="submit">Завершить тест</button>
   </form>
 </div>
-<div id="result" style="display:none; margin-top:20px;"></div>
+
+<!-- Блок для отображения результата -->
+<div id="result"></div>
+
+<!-- Скрипт -->
 <script>
-  document.getElementById('depressionTest').addEventListener('submit', function(e) {
-    e.preventDefault();
+  // Функция для начала теста
+  function startTest() {
+    document.getElementById('instructionSection').style.display = 'none';
+    document.getElementById('depressionTest').style.display = 'block';
+  }
+
+  // Обработка формы
+  document.getElementById('testForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // чтобы не перезагружать страницу
     let totalScore = 0;
+
+    // Проходим по всем вопросам
     for (let i = 1; i <= 10; i++) {
       const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
       if (answers.length > 0) {
         totalScore += parseInt(answers[0].value);
       } else {
         alert(`Пожалуйста, ответьте на вопрос ${i}`);
-        return;
+        return; // если есть незаполненный вопрос, остановить
       }
     }
-    // Вывод результата на страницу
+
+    // Вывод результата
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '<h3>Ваш результат: ' + totalScore + '</h3>';
     resultDiv.style.display = 'block';
+
+    // Можно добавить дополнительные действия, например, отправку результатов на сервер
   });
 </script>
 
