@@ -9,7 +9,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
  
 <style>
+.bottom-nav {
+  display:flex; 
+  justify-content:space-around; 
+  align-items:center; 
+  width:100%; 
+  position:fixed; 
+  bottom:0; 
+  left:0; 
+  right:0; 
+  background:transparent; /* прозрачный фон */
+  padding:10px 0;
+}
 
+/* Кнопки-иконки */
+.icon-btn {
+   background:none; 
+   border:none; 
+   cursor:pointer; 
+   padding:10px; 
+   font-size:24px; 
+   color:#333; 
+   transition:.2s all ease-in-out;
+}
+
+.icon-btn:hover,
+.icon-btn :active { /* можно оставить так для эффекта наведения и нажатия одновременно */   
+   background-color : rgba(144,128,208,1);
+}
   .question-container {
     background: #fff;
     padding: 30px;
