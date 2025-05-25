@@ -16,9 +16,12 @@
             margin-bottom: 20px;
             display: none;
         }
-        .question-container.active {
-            display: block;
-        }
+.question-container.active {
+    display: flex; /* делаем флекс-контейнер */
+    justify-content: center; /* горизонтальное выравнивание */
+    align-items: center; /* вертикальное выравнивание */
+    flex-direction: column; /* чтобы внутри было вертикальное расположение элементов, если нужно */
+}
         .question {
             font-size: 18px;
             margin-bottom: 20px;
