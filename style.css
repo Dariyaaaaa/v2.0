@@ -183,8 +183,6 @@ button {
     border:none;
     border-radius:45px;
     cursor:pointer;
-    font-size:16px;
-    margin-top:20px;
     display:block;
     width:auto; /* можно оставить auto или задать фиксированную ширину */
 }
