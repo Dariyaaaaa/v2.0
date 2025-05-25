@@ -28,22 +28,21 @@
             font-weight: bold;
             
         }
-        .option {
-            margin: 15px 0;
-            padding: 12px;
-             background: rgba(255, 255, 255, 0.5);
-            border-radius: 45px;
-            cursor: pointer;
-            display: flex;
-               align-items: center; /* Вертикальное центрирование */
-    justify-content: center; /* Горизонтальное центрирование */
-    font-size: 20px; /* Подберите подходящий размер шрифта */
-    line-height: 90px;
-            position: relative;
-            padding-left: 40px;
-            width: 345px;
-            height: 90px;
-        }
+.option {
+    margin: 15px 0;
+    width: 345px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 45px;
+    cursor: pointer;
+    display: flex; /* для центрирования */
+    align-items: center; /* вертикальное центрирование */
+    justify-content: center; /* горизонтальное центрирование */
+    font-size: 20px; /* размер шрифта */
+    padding: 0 20px; /* внутренние отступы для текста */
+    box-sizing: border-box; /* чтобы padding учитывался в ширине/высоте */
+    text-align: center; /* выравнивание текста по центру */
+    overflow-wrap: break-word; /* перенос длинных слов */
         .option:hover {
          background-color : rgba(144,128,208,1);
         }
