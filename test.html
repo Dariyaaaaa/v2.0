@@ -1,197 +1,293 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Тест на уровень депрессии</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест на уровень депрессии</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .question-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+        .question-container.active {
+            display: block;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .option {
+            margin: 15px 0;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            position: relative;
+            padding-left: 40px;
+        }
+        .option:hover {
+            background: #e9e9e9;
+        }
+        .option input {
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            cursor: pointer;
+        }
+        button {
+            padding: 12px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .result-score {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .diagnosis {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .mild {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+        .moderate {
+            background-color: #FFE0A3;
+            color: #D35400;
+        }
+        .severe {
+            background-color: #F8D7DA;
+            color: #721C24;
+        }
+        .progress-bar {
+            height: 5px;
+            background: #e0e0e0;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .progress {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .option-text {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(100% - 30px);
+        }
+    </style>
 </head>
 <body>
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
 
-<div class="progress-bar">
- <div class="progress" id="progress"></div>
-</div>
+    <!-- Контейнеры с вопросами -->
+    <div id="question1" class="question-container active">
+        <div class="question">1. Я не чувствую себя расстроенным, печальным.</div>
+        <label class="option">
+            <input type="radio" name="q1" value="0">
+            <span class="option-text">0 - Я не чувствую себя расстроенным, печальным.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q1" value="1">
+            <span class="option-text">1 - Я расстроен.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q1" value="2">
+            <span class="option-text">2 - Я все время расстроен и не могу от этого отключиться.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q1" value="3">
+            <span class="option-text">3 - Я настолько расстроен и несчастлив, что не могу это выдержать.</span>
+        </label>
+        <button onclick="nextQuestion(1)">Далее</button>
+    </div>
 
-<!-- Вопросы -->
-<div id="question1" class="question-container active">
- <div class="question">1. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
- <div class="option">
-   <input type="radio" name="q1" value="0" id="q1a1" onchange='nextQuestion(1)'/>
-   <label for="q1a1"><span>Я не чувствую себя расстроенным, печальным.</span></label>
- </div>
- <div class="option">
-   <input type="radio" name="q1" value="1" id="q1a2" onchange='nextQuestion(1)'/>
-   <label for="q1a2"><span>Я расстроен.</span></label>
- </div>
- <div class="option">
-   <input type="radio" name="q1" value="2" id="q1a3" onchange='nextQuestion(1)'/>
-   <label for="q1a3"><span>Я всё время расстроен и не могу от этого отключиться.</span></label>
- </div>
- <div class="option">
-   <input type="radio" name="q1" value="3" id="q1a4"onchange='nextQuestion(1)'/>
-   <label for="q1a4"><span>Я настолько расстроен и несчастлив, что не могу это выдержать.</span></label>
- </div>
-</div>
+    <!-- Остальные вопросы (шаблон аналогичный) -->
+    <div id="question2" class="question-container">
+        <div class="question">2. Я не тревожусь о своем будущем.</div>
+        <label class="option">
+            <input type="radio" name="q2" value="0">
+            <span class="option-text">0 - Я не тревожусь о своем будущем.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="1">
+            <span class="option-text">1 - Я чувствую, что озадачен будущим.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="2">
+            <span class="option-text">2 - Я чувствую, что меня ничего не ждет в будущем.</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="3">
+            <span class="option-text">3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</span>
+        </label>
+        <button onclick="nextQuestion(2)">Далее</button>
+    </div>
+    
+    <div id="question3" class="question-container">
+        <div class="question">2. Я не чувствую себя неудачником. </div>
+        <label class="option">
+            <input type="radio" name="q2" value="0">
+            <span class="option-text">0 - Я не чувствую себя неудачником. </span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="1">
+            <span class="option-text">1 -  Я чувствую, что терпел больше неудач, чем другие люди</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="2">
+            <span class="option-text">2 -Когда я оглядываюсь на свою жизнь, я вижу в ней много не</span>
+        </label>
+        <label class="option">
+            <input type="radio" name="q2" value="3">
+            <span class="option-text">3 - Я чувствую, что как личность я - полный неудачник.</span>
+        </label>
+        <button onclick="showResults()">Завершить тестирование</button>
+    </div>
 
-<div id="question2" class="question-container">
- <div class="question">2. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
- <div class="option">
-   <input type='radio' name='q2' value='0' id='q2a1' onchange='nextQuestion(2)'/>
-   <label for='q2a1'><span>Я не тревожусь о своем будущем.</span></label>
- </div>
- <div class='option'>
-   <input type='radio' name='q2' value='1' id='q2a2'onchange='nextQuestion(2)'/>
-   <label for='q2a2'><span>Я чувствую, что озадачен будущим.</span></label>
- </div>
- <div class='option'>
-   <input type='radio' name='q2' value='2' id='q2a3'onchange='nextQuestion(2)'/>
-   <label for='q2a3'><span>Я чувствую, что меня ничего не ждет в будущем.</span></label>
- </div>
- <div class='option'>
-   <input type='radio' name='q2' value='3' id='q2a4'onchange='nextQuestion(2)'/>
-   <label for='q2a4'><span>Мое будущее безнадежно, и ничто не может измениться к лучшему.</span></label>
- </div>
-<button onclick="prevQuestion(2)" id="backBtn2">Назад</button>
-</div>
+    <!-- Контейнер с результатами -->
+    <div id="result-container">
+        <h2>Результаты теста</h2>
+        <div class="result-score">Ваш результат: <span id="total-score">0</span> баллов</div>
+        <div class="diagnosis" id="diagnosis-text">Результат</div>
+        <p id="result-description">Описание результата</p>
+        <button onclick="restartTest()">Пройти тест снова</button>
+    </div>
 
-<!-- Можно добавить остальные вопросы по аналогии -->
+    <script>
+      
+        // Храним ответы пользователя
+        const answers = {};
+        const totalQuestions = 3; // Измените на 6 для полного теста
 
-<!-- Например вопрос №3 -->
-<div id='question3' class='question-container'>
-<div class='question'>3. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
-<div class='option'>
-<input type='radio' name='q3' value='0' id='q3a1'onchange='autoNext(3)'/>
-<label for='q3a1'><span>Я не чувствую себя неудачником.</span></label>
-</div>
-<div class='option'>
-<input type='radio' name='q3' value='1' id='q3a2'onchange='autoNext(3)'/>
-<label for='q3a2'><span>Я чувствую, что терпел больше неудач, чем другие люди</span></label>
-</div>
-<div class='option'>
-<input type='radio' name='q3' value='2' id='q3a3'onchange='autoNext(3)'/>
-<label for='q3a3'><span>Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач.</span></label>
-</div>
-<div class='option'>
-<input type='radio' name='q3' value='3' id='q3a4'onchange='autoNext(3)'/>
-<label for='q3a4'><span>Я чувствую, что как личность я — полный неудачник.</span></label>
-</div>
-  <button onclick="prevQuestion(3)" id="backBtn2">Назад</button>
-</div>
-</body>
-</html>
-<!-- Контейнер результатов -->
-<div id="result-container">
-  <h2>Результаты теста</h2>
-  <div class="result-score">Ваш результат: <span id="total-score">0</span></div>
-  <div class="diagnosis" id="diagnosis-text"></div>
-  <p id="result-description"></p>
-  <button onclick="restartTest()">Пройти заново</button>
-</div>
-<!-- Нижняя панель с иконками без фона -->
-<div class="bottom-nav">
- <button class="icon-btn"><i class="fas fa-cog"></i></button>
- <button class="icon-btn"><i class="fas fa-search"></i></button>
- <button class="icon-btn"><i class="fas fa-user"></i></button>
-</div>
+        // Переход к следующему вопросу
+        function nextQuestion(currentQuestion) {
+            const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            
+            if (!selectedOption) {
+                alert("Пожалуйста, выберите вариант ответа");
+                return;
+            }
 
-<script>
-  const totalQuestions = 3; // Общее число вопросов
-  const answers = {};
-function prevQuestion(questionNumber) {
-  // Скрываем текущий вопрос
-  document.getElementById(`question${questionNumber}`).style.display = 'none';
+            // Сохраняем ответ
+            answers[`q${currentQuestion}`] = parseInt(selectedOption.value);
+            
+            // Скрываем текущий вопрос
+            document.getElementById(`question${currentQuestion}`).classList.remove('active');
+            
+            // Показываем следующий вопрос или результаты
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question${currentQuestion + 1}`).classList.add('active');
+            } else {
+                showResults();
+            }
+            
+            // Обновляем прогресс-бар
+            updateProgress(currentQuestion);
+        }
 
-  // Определяем предыдущий вопрос
-  const prevQ = questionNumber - 1;
-  if (prevQ >= 1) {
-    document.getElementById(`question${prevQ}`).style.display = 'block';
+        // Обновление прогресс-бара
+        function updateProgress(currentQuestion) {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
 
-    // Обновляем видимость кнопок "Назад"
-    for (let i = 1; i <= totalQuestions; i++) {
-      document.getElementById(`backBtn${i}`).style.display = (i === prevQ) ? 'none' : 'inline-block';
-    }
+        // Показать результаты
+        function showResults() {
+            // Подсчет общего балла
+            let totalScore = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                totalScore += answers[`q${i}`] || 0;
+            }
+            
+            // Определение результата
+            let diagnosis, description;
+            if (totalScore <= 9) {
+                diagnosis = "Отсутствие депрессии";
+                description = "Ваши результаты не указывают на наличие депрессивных симптомов.";
+            } else if (totalScore <= 15) {
+                diagnosis = "Легкая депрессия";
+                description = "У вас могут быть некоторые симптомы депрессии. Рекомендуется обратить внимание на свое эмоциональное состояние.";
+            } else if (totalScore <= 19) {
+                diagnosis = "Умеренная депрессия";
+                description = "Ваши результаты указывают на умеренные симптомы депрессии. Возможно, вам стоит обратиться к специалисту.";
+            } else {
+                diagnosis = "Тяжелая депрессия";
+                description = "Ваши результаты указывают на выраженные симптомы депрессии. Рекомендуется обратиться за профессиональной помощью.";
+            }
+            
+            // Показываем результаты
+            document.getElementById('question3').style.display = 'none';
+    
+            document.getElementById('total-score').textContent = totalScore;
+            document.getElementById('diagnosis-text').textContent = diagnosis;
+            document.getElementById('diagnosis-text').className = 'diagnosis ' + 
+                (totalScore <= 9 ? 'mild' : 
+                 totalScore <= 15 ? 'moderate' : 'severe');
+            document.getElementById('result-description').textContent = description;
+            document.getElementById('result-container').style.display = 'block';
+        }
 
-    // Обновляем прогресс
-    updateProgress(prevQ);
-  }
-}
-  function nextQuestion(questionNumber) {
-    const selected = document.querySelector(`input[name=q${questionNumber}]:checked`);
-    if (!selected) {
-      alert('Пожалуйста, выберите вариант ответа');
-      return;
-    }
-    answers[`q${questionNumber}`] = parseInt(selected.value);
-    document.getElementById(`question${questionNumber}`).style.display = 'none';
-
-    if (questionNumber < totalQuestions) {
-      const nextQ = questionNumber + 1;
-      document.getElementById(`question${nextQ}`).style.display = 'block';
-      updateProgress(nextQ);
-    }
-  }
-
-  function updateProgress(currentQuestion) {
-    const progressPercent = (currentQuestion / totalQuestions) * 100;
-    document.getElementById('progress').style.width = progressPercent + '%';
-  }
-
-  function showResults() {
-    let totalScore = 0;
-    for (let i = 1; i <= totalQuestions; i++) {
-      totalScore += answers[`q${i}`] || 0;
-    }
-    document.getElementById('total-score').textContent = totalScore;
-
-    // Определение диагноза
-    let diagnosis, description;
-    if (totalScore <= 9) {
-      diagnosis = "Отсутствие депрессии";
-      description = "Ваши результаты не указывают на наличие депрессивных симптомов.";
-    } else if (totalScore <= 15) {
-      diagnosis = "Легкая депрессия";
-      description = "У вас могут быть некоторые симптомы депрессии. Рекомендуется обратить внимание на свое эмоциональное состояние.";
-    } else if (totalScore <= 19) {
-      diagnosis = "Умеренная депрессия";
-      description = "Ваши результаты указывают на умеренные симптомы депрессии. Возможно, вам стоит обратиться к специалисту.";
-    } else {
-      diagnosis = "Тяжелая депрессия";
-      description = "Ваши результаты указывают на выраженные симптомы депрессии. Рекомендуется обратиться за профессиональной помощью.";
-    }
-    document.getElementById('diagnosis-text').textContent = diagnosis;
-    document.getElementById('diagnosis-text').className = 'diagnosis ' + 
-        (totalScore <= 9 ? 'mild' : totalScore <= 15 ? 'moderate' : 'severe');
-
-    document.getElementById('result-description').textContent = description;
-
-    // Показываем результаты
-    document.querySelectorAll('.question-container').forEach(q => q.style.display='none');
-    document.getElementById('result-container').style.display = 'block';
-  }
-
-  function restartTest() {
-    // Очистка ответов
-    for (let i = 1; i <= totalQuestions; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      for (let radio of radios) {
-        radio.checked = false;
-      }
-    }
-    // Скрываем результаты
-    document.getElementById('result-container').style.display = 'none';
-
-    // Показываем первый вопрос
-    document.getElementById('question1').style.display = 'block';
-
-    // Обновляем прогресс
-    document.getElementById('progress').style.width = '0%';
-
-    // Очищаем ответы
-    for (let key in answers) delete answers[key];
-  }
-</script>
-
+        // Начать тест заново
+        function restartTest() {
+            // Сбрасываем ответы
+            for (let i = 1; i <= totalQuestions; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                for (let radio of radios) {
+                    radio.checked = false;
+                }
+            }
+            
+            // Скрываем результаты
+            document.getElementById('result-container').style.display = 'none';
+            
+            // Показываем первый вопрос
+            document.getElementById('question1').classList.add('active');
+            for (let i = 2; i <= totalQuestions; i++) {
+                document.getElementById(`question${i}`).classList.remove('active');
+            }
+            
+            // Сбрасываем прогресс-бар
+            document.getElementById('progress').style.width = '0%';
+        }
+    </script>
 </body>
 </html>
