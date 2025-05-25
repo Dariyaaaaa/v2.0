@@ -173,31 +173,68 @@ button:hover {
 <div id="questions-container">
   
   <!-- Вопросы -->
-  
-  <div class="question" id="question1">
-    <p>1. Чувствуете ли вы себя подавленным или грустным большую часть времени?</p>
-    <label><input type="radio" name="q1" value="0"> Нет</label><br/>
-    <label><input type="radio" name="q1" value="1"> Иногда</label><br/>
-    <label><input type="radio" name="q1" value="2"> Часто</label><br/>
-    
-  </div>
-  
-  <div class="question" id="question2">
-    <p>2. Теряете ли вы интерес к хобби или деятельности, которая раньше приносила удовольствие?</p>
-    <label><input type="radio" name="q2" value="0"> Нет</label><br/>
-    <label><input type="radio" name="q2" value="1"> Иногда</label><br/>
-    <label><input type="radio" name="q2" value="2"> Часто</label><br/>
-    
-  </div>
-  
-  <div class="question" id="question3">
-    <p>3. Испытываете ли вы усталость или снижение энергии?</p>
-    <label><input type="radio" name="q3" value="0"> Нет</label><br/>
-    <label><input type="radio" name="q3" value="1"> Иногда</label><br/>
-    <label><input type="radio" name="q3" value="2"> Часто</label><br/>
-    
-  </div>
+<!-- Вопросы -->
+<div id="question1" class="question-container active">
+ <div class="question">1. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
+ <div class="option">
+   <input type="radio" name="q1" value="0" id="q1a1"/>
+   <label for="q1a1"><span>Я не чувствую себя расстроенным, печальным.</span></label>
+ </div>
+ <div class="option">
+   <input type="radio" name="q1" value="1" id="q1a2"/>
+   <label for="q1a2"><span>Я расстроен.</span></label>
+ </div>
+ <div class="option">
+   <input type="radio" name="q1" value="2" id="q1a3"/>
+   <label for="q1a3"><span>Я всё время расстроен и не могу от этого отключиться.</span></label>
+ </div>
+ <div class="option">
+   <input type="radio" name="q1" value="3" id="q1a4"/>
+   <label for="q1a4"><span>Я настолько расстроен и несчастлив, что не могу это выдержать.</span></label>
+ </div>
+</div>
 
+<div id="question2" class="question-container">
+ <div class="question">2. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
+ <div class="option">
+   <input type='radio' name='q2' value='0' id='q2a1'/>
+   <label for='q2a1'><span>Я не тревожусь о своем будущем.</span></label>
+ </div>
+ <div class='option'>
+   <input type='radio' name='q2' value='1' id='q2a2'/>
+   <label for='q2a2'><span>Я чувствую, что озадачен будущим.</span></label>
+ </div>
+ <div class='option'>
+   <input type='radio' name='q2' value='2' id='q2a3'/>
+   <label for='q2a3'><span>Я чувствую, что меня ничего не ждет в будущем.</span></label>
+ </div>
+ <div class='option'>
+   <input type='radio' name='q2' value='3' id='q2a4'/>
+   <label for='q2a4'><span>Мое будущее безнадежно, и ничто не может измениться к лучшему.</span></label>
+ </div>
+</div>
+
+<!-- Можно добавить остальные вопросы по аналогии -->
+
+<!-- Например вопрос №3 -->
+<div id='question3' class='question-container'>
+<div class='question'>3. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
+<div class='option'>
+<input type='radio' name='q3' value='0' id='q3a1'/>
+<label for='q3a1'><span>Я не чувствую себя неудачником.</span></label>
+</div>
+<div class='option'>
+<input type='radio' name='q3' value='1' id='q3a2'/>
+<label for='q3a2'><span>Я чувствую, что терпел больше неудач, чем другие люди</span></label>
+</div>
+<div class='option'>
+<input type='radio' name='q3' value='2' id='q3a3'/>
+<label for='q3a3'><span>Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач.</span></label>
+</div>
+<div class='option'>
+<input type='radio' name='q3' value='3' id='q3a4'/>
+<label for='q3a4'><span>Я чувствую, что как личность я — полный неудачник.</span></label>
+</div>
 </div>
 
 <!-- Контейнер для результата -->
