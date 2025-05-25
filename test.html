@@ -9,11 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
  
 <style>
- /* Иконка стрелки справа */
-.arrow-icon {
-    margin-left:15px; /* Расстояние между текстом и стрелкой */
-    color: #fff;
-}
 .bottom-nav {
   display:flex; 
   justify-content:space-around; 
@@ -49,33 +44,41 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     margin-bottom: 20px;
     display: none;
-    width: 345px;   /* Устанавливаем ширину */
-    height: 420px;   /* Устанавливаем высоту */
-    box-sizing: border-box; /* Обеспечит, что padding входит в размеры */
+    width: 345px;   /* ширина блока */
+    height: auto;   /* высота по содержимому */
+    box-sizing: border-box; /* включает padding в размеры */
 }
 
-  .question-container.active {
+.question-container.active {
     display: block;
-  }
+}
 
-  .question {
+.question {
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: bold;
-  }
+}
 
+/* Варианты ответа */
 .option {
+    display: flex; /* размещение элементов по горизонтали */
+    align-items: center; /* вертикальное выравнивание */
     margin: 15px 0;
     padding: 12px;
     background: #f9f9f9;
     border-radius: 45px;
     cursor: pointer;
-    display: block;
-    position: relative;
-    padding-left: 40px;
-    width: 345px;
-    height: 90px;
-    box-sizing: border-box;
+    padding-left: 10px; /* небольшой отступ слева для текста */
+}
+
+/* Радио кнопка внутри .option */
+.option input[type="radio"] {
+    margin-right: 15px; /* отступ между радиокнопкой и текстом */
+}
+
+/* Можно добавить стили для текста внутри label, если нужно */
+.option span {
+    font-size: 16px;
 }
 
   .option:hover {
