@@ -191,16 +191,12 @@
    <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
    <div class='option' onclick='selectAnswer(2,3)'>3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>   
 </div>
- <button class='back-button' onclick='prevQuestion(2)'>Назад</button>
-</div>
 <div id="question3" class="question-container">
    <div class="question">3. Я не чувствую себя неудачником.</div>
    <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
    <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
    <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
    <div class='option' onclick= 'selectAnswer(3,3)'>3 - Я чувствую, что как личность я — полный неудачник.</div> 
-</div>
- <button class='back-button' onclick='prevQuestion(3)'>Назад</button>
 </div>
 <!-- Контейнер с результатами -->
 <div id='result-container' style='display:none;'>
@@ -210,7 +206,7 @@
 <p id='result-description'>Описание результата</p>
 <button onclick='restartTest()'>Пройти тест снова</button>
 </div>
-
+<button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
 <script>
 // Объект для хранения ответов
 const answers = {};
@@ -223,32 +219,48 @@ function updateProgress(questionNumber) {
  document.getElementById('progress').style.width = progressPercent + '%';
 }
 
-// Переход к предыдущему вопросу
-function prevQuestion(questionNumber) {
- const currentDiv = document.getElementById('question' + questionNumber);
- currentDiv.classList.remove('active');
+let currentQuestionNumber = 1;
 
- const prevQuestionNumber = questionNumber - 1;
- const prevDiv = document.getElementById('question' + prevQuestionNumber);
- if (prevDiv) {
-    prevDiv.classList.add('active');
-    updateProgress(prevQuestionNumber);
- }
+function updateProgress(questionNumber) {
+    const totalQuestions = document.querySelectorAll('.question-container').length;
+    const progressPercent = (questionNumber - 1) / totalQuestions * 100;
+    document.getElementById('progress').style.width = progressPercent + '%';
+
+    // Обновляем текущий номер вопроса
+    currentQuestionNumber = questionNumber;
+
+    // Показываем или скрываем кнопку назад
+    if (questionNumber > 1) {
+        document.getElementById('global-back-btn').style.display = 'inline-block';
+    } else {
+        document.getElementById('global-back-btn').style.display = 'none';
+    }
+}
+function prevQuestion() {
+    if (currentQuestionNumber > 1) {
+        const currentDiv = document.getElementById('question' + currentQuestionNumber);
+        currentDiv.classList.remove('active');
+
+        const prevQuestionNumber = currentQuestionNumber - 1;
+        const prevDiv = document.getElementById('question' + prevQuestionNumber);
+        if (prevDiv) {
+            prevDiv.classList.add('active');
+            updateProgress(prevQuestionNumber);
+        }
+    }
 }
 
-// Переход к следующему вопросу
-function nextQuestion(currentQuestionNumber) {
- const currentDiv = document.getElementById('question' + currentQuestionNumber);
- currentDiv.classList.remove('active');
+function nextQuestion(questionNumber) {
+    const currentDiv = document.getElementById('question' + questionNumber);
+    currentDiv.classList.remove('active');
 
- const nextQuestionNumber = currentQuestionNumber +1 ;
- const nextDiv = document.getElementById('question' + nextQuestionNumber);
- if(nextDiv){
-     nextDiv.classList.add('active');
-     updateProgress(nextQuestionNumber);
- } else{
-     showResults();
- }
+    const nextQNum = questionNumber + 1;
+    const nextDiv = document.getElementById('question' + nextQNum);
+    if (nextDiv) {
+        nextDiv.classList.add('active');
+        updateProgress(nextQNum);
+    } else {
+        showResults();
 }
 
 // Обработка выбора ответа
