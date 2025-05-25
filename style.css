@@ -176,15 +176,14 @@ h1 {
 button {
     padding: 12px 20px;
     background-color: rgba(255,255,255,0.5);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      width: 213px; /* ширина блока */
-    height: 69px; /* высота блока */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    width: 213px; /* фиксированная ширина */
+    height: 69px; /* фиксированная высота */
     color: black;
-    border:none;
-    border-radius:45px;
-    cursor:pointer;
-    display:block;
-    width:auto; /* можно оставить auto или задать фиксированную ширину */
+    border: none;
+    border-radius: 45px;
+    cursor: pointer;
+    display: block; /* или inline-block */
 }
 button:hover {
    background-color : rgba(144,128,208,1);
