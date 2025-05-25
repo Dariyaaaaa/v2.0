@@ -82,7 +82,7 @@ h1 {
 /* Нижняя панель с иконками без фона */
 .bottom-nav {
   display:flex; 
-  justify-content:space-around; 
+  justify-content:space-evenly; 
   align-items:center; 
   width:100%; 
   position:fixed; 
