@@ -80,16 +80,13 @@ h1 {
 /* Изначально скрываем форму теста и блок с результатом */
 ИНСТРУКЦИЯ И ТЕСТ 
 .bottom-nav {
-  display: flex; 
-  justify-content: space-around; 
-  align-items: center; 
-  width: 100%; 
-  position: fixed; 
-  bottom: 0; 
-  left: 0; 
-  right: 0; 
-  background: transparent; /* прозрачный фон */
-  padding: 10px 0;
+  display: flex;
+  justify-content: space-evenly; /* равномерное распределение с равными промежутками */
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 /* Кнопки-иконки */
