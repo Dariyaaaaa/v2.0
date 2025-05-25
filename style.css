@@ -184,6 +184,7 @@ button {
     border-radius: 45px;
     cursor: pointer;
     display: block; /* или inline-block */
+  font-family: 'Comfortaa', cursive; /* применяем шрифт */
 }
 button:hover {
    background-color : rgba(144,128,208,1);
