@@ -131,7 +131,6 @@
   <div class="option"><label><input type="radio" name="q1" value="3"> Я настолько расстроен и несчастлив, что не могу это выдержать.</label></div>
   <button onclick="nextQuestion(1)">Далее</button>
 </div>
-
 <div id="question2" class="question-container">
   <div class="question">2. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
   <div class="option"><label><input type="radio" name="q2" value="0"> Я не тревожусь о своем будущем.</label></div>
@@ -140,7 +139,6 @@
   <div class="option"><label><input type="radio" name="q2" value="3"> Мое будущее безнадежно, и ничто не может измениться к лучшему.</label></div>
   <button onclick="nextQuestion(2)">Далее</button>
 </div>
-
 <!-- Повторите для всех вопросов -->
 <!-- Например, вопрос 3 -->
 <div id="question3" class="question-container">
@@ -151,18 +149,6 @@
   <div class="option"><label><input type="radio" name="q3" value="3"> Я чувствую, что как личность я — полный неудачник.</label></div>
   <button onclick="nextQuestion(3)">Далее</button>
 </div>
-
-<!-- В конце — кнопка для завершения -->
-<div id="question21" class="question-container">
-  <div class="question">21. Ваш последний вопрос?</div>
-  <!-- Варианты ответов -->
-  <div class="option"><label><input type="radio" name="q21" value="0"> Вариант 1</label></div>
-  <div class="option"><label><input type="radio" name="q21" value="1"> Вариант 2</label></div>
-  <div class="option"><label><input type="radio" name="q21" value="2"> Вариант 3</label></div>
-  <div class="option"><label><input type="radio" name="q21" value="3"> Вариант 4</label></div>
-  <button onclick="showResults()">Завершить тестирование</button>
-</div>
-
 <!-- Контейнер результатов -->
 <div id="result-container">
   <h2>Результаты теста</h2>
@@ -173,7 +159,7 @@
 </div>
 
 <script>
-  const totalQuestions = 21; // Общее число вопросов
+  const totalQuestions = 3; // Общее число вопросов
   const answers = {};
 
   function nextQuestion(questionNumber) {
