@@ -150,9 +150,10 @@
     </style>
 </head>
 <body>
-    <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-    </div>
+<div class="progress-bar">
+    <div class="progress" id="progress"></div>
+</div>
+
 <!-- Нижняя панель с иконками без фона -->
 <div class="bottom-nav">
  <button class="icon-btn"><i class="fas fa-cog"></i></button>
@@ -160,8 +161,8 @@
  <button class="icon-btn"><i class="fas fa-user"></i></button>
 </div>
 
-    <!-- Контейнеры с вопросами -->
-   <div id="question1" class="question-container active">
+<!-- Контейнеры с вопросами -->
+<div id="question1" class="question-container active">
    <div class="question">1. Я не чувствую себя расстроенным, печальным.</div>
    <div class="option" onclick="selectAnswer(1,0)">0 - Я не чувствую себя расстроенным, печальным.</div>
    <div class="option" onclick="selectAnswer(1,1)">1 - Я расстроен.</div>
@@ -171,21 +172,20 @@
 
 <div id="question2" class="question-container">
    <div class="question">2. Я не тревожусь о своем будущем.</div>
-    <button class="back-button" onclick="prevQuestion(2)">Назад</button>
-   <div class="option" onclick="selectAnswer(2,0)">0 - Я не тревожусь о своем будущем.</div>
-   <div class="option" onclick="selectAnswer(2,1)">1 - Я чувствую, что озадачен будущим.</div>
-   <div class="option" onclick="selectAnswer(2,2)">2 - Я чувствую, что меня ничего не ждет в будущем.</div>
-   <div class="option" onclick="selectAnswer(2,3)">3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>
-    
+   <button class='back-button' onclick='prevQuestion(2)'>Назад</button>
+   <div class='option' onclick='selectAnswer(2,0)'>0 - Я не тревожусь о своем будущем.</div>
+   <div class='option' onclick='selectAnswer(2,1)'>1 - Я чувствую, что озадачен будущим.</div>
+   <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
+   <div class='option' onclick='selectAnswer(2,3)'>3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>   
 </div>
 
 <div id="question3" class="question-container">
    <div class="question">3. Я не чувствую себя неудачником.</div>
-    <button class="back-button" onclick="prevQuestion(3)">Назад</button>
-   <div class="option" onclick= "selectAnswer(3,0)">0 - Я не чувствую себя неудачником.</div>
-   <div class "option" onclick = "selectAnswer(3,1)">1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
-   <div class = "option" onclick = "selectAnswer(3,2)">2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
-   <div class = "option" onclick = "selectAnswer(3,3)">3 - Я чувствую, что как личность я — полный неудачник.</div> 
+   <button class='back-button' onclick='prevQuestion(3)'>Назад</button>
+   <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
+   <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
+   <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
+   <div class='option' onclick= 'selectAnswer(3,3)'>3 - Я чувствую, что как личность я — полный неудачник.</div> 
 </div>
 
 <!-- Контейнер с результатами -->
@@ -208,22 +208,20 @@ function updateProgress(questionNumber) {
  const progressPercent = (questionNumber -1) / totalQuestions *100; 
  document.getElementById('progress').style.width = progressPercent + '%';
 }
-function prevQuestion(questionNumber) {
-  const currentDiv = document.getElementById('question' + questionNumber);
-  currentDiv.classList.remove('active');
 
-  const prevQuestionNumber = questionNumber - 1;
-  const prevDiv = document.getElementById('question' + prevQuestionNumber);
-  if (prevDiv) {
+// Переход к предыдущему вопросу
+function prevQuestion(questionNumber) {
+ const currentDiv = document.getElementById('question' + questionNumber);
+ currentDiv.classList.remove('active');
+
+ const prevQuestionNumber = questionNumber - 1;
+ const prevDiv = document.getElementById('question' + prevQuestionNumber);
+ if (prevDiv) {
     prevDiv.classList.add('active');
     updateProgress(prevQuestionNumber);
-  }
+ }
 }
 
-// Обновление showResults для пересчета суммы
-function showResults() {
-  // пересчитать сумму баллов по ответам
-  totalScore = Object.values(answers).reduce((sum,val)=>sum+val ,0);
 // Переход к следующему вопросу
 function nextQuestion(currentQuestionNumber) {
  const currentDiv = document.getElementById('question' + currentQuestionNumber);
@@ -283,6 +281,7 @@ function restartTest() {
  document.getElementById('result-container').style.display='none';
 
  // показать первый вопрос
+ document.querySelector('.question-container.active')?.classList.remove('active');
  document.getElementById('question1').classList.add('active');
 
  // обновить прогрессбар
@@ -294,4 +293,3 @@ updateProgress(1);
 </script>
 
 </body>
-</html>
