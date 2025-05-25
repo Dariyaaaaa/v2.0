@@ -119,8 +119,10 @@ h1 {
 
 .question-container.active {
     display: block;
+    display: flex;
+  flex-direction: column; /* расположение вопросов по вертикали */
+  align-items: center;    /* выравнивание вопросов по центру */
 }
-
 /* Вопрос */
 .question {
     font-size: 18px;
