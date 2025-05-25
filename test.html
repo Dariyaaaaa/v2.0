@@ -43,6 +43,7 @@
     box-sizing: border-box; /* чтобы padding учитывался в ширине/высоте */
     text-align: center; /* выравнивание текста по центру */
     overflow-wrap: break-word; /* перенос длинных слов */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
         .option:hover {
          background-color : rgba(144,128,208,1);
         }
@@ -185,7 +186,6 @@
 
 <div id="question2" class="question-container">
    <div class="question">2. Я не тревожусь о своем будущем.</div>
-   <button class='back-button' onclick='prevQuestion(2)'>Назад</button>
    <div class='option' onclick='selectAnswer(2,0)'>0 - Я не тревожусь о своем будущем.</div>
    <div class='option' onclick='selectAnswer(2,1)'>1 - Я чувствую, что озадачен будущим.</div>
    <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
@@ -195,7 +195,6 @@
 </div>
 <div id="question3" class="question-container">
    <div class="question">3. Я не чувствую себя неудачником.</div>
-   <button class='back-button' onclick='prevQuestion(3)'>Назад</button>
    <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
    <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
    <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
