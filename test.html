@@ -3,111 +3,165 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Тест на депрессию</title>
+<title>Тест на уровень депрессии</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 20px;
-  }
-  .container {
-    max-width: 800px;
-    margin: auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  h1 {
-    text-align: center;
-  }
-  .progress-container {
-    width: 100%;
-    background-color: #ddd;
-    border-radius: 20px;
-    height: 20px;
-    margin-bottom: 20px;
-  }
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: #4CAF50;
-    border-radius: 20px;
-    transition: width 0.3s ease;
-  }
-  .question-container {
-    display: none;
-  }
-  .question-container.active {
-    display: block;
-  }
-  .question {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-  }
-  .option {
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  input[type="radio"] {
-    display: none; /* скрываем радиокнопки */
-  }
-  label {
-    padding-left: 25px;
-    position: relative;
-    cursor: pointer;
-    user-select: none; /* отключить выделение текста при клике */
+/* Общие стили */
+body {
+  font-family: 'Comfortaa', sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
 }
-label span {
-   position: relative; 
+
+/* Прогресс-бар */
+.bottom-nav {
+  display:flex; 
+  justify-content:space-around; 
+  align-items:center; 
+  width:100%; 
+  position:fixed; 
+  bottom:0; 
+  left:0; 
+  right:0; 
+  background:transparent; /* прозрачный фон */
+  padding:10px 0;
 }
-label::before {
-   content:"";
-   position:absolute; 
-   left:-25px; 
-   top:-2px; 
-   width:20px; 
-   height:20px; 
-   border-radius:50%; 
-   border:2px solid #999; 
-}
-input[type="radio"]:checked + label::after {
-   content:"";
-   position:absolute; 
-   left:-19px; 
-   top:-8px; 
-   width:10px; 
-   height:10px; 
-   border-radius:50%; 
-   background:#4CAF50; 
-}
-button {
-   display:inline-block; 
-   padding:10px 20px; 
-   font-size:16px; 
-   margin-top:-10px; /* убираем отступ */
-   cursor:pointer; 
-   background-color:#4CAF50; 
-   color:#fff; 
+
+/* Кнопки-иконки */
+.icon-btn {
+   background:none; 
    border:none; 
-   border-radius:5px; 
+   cursor:pointer; 
+   padding:10px; 
+   font-size:24px; 
+   color:#333; 
+   transition:.2s all ease-in-out;
+}
+
+.icon-btn:hover,
+.icon-btn :active {   
+   background-color : rgba(144,128,208,1);
+}
+
+/* Контейнер вопроса */
+.question-container {
+    margin-bottom: 20px;
+    display: none;
+    width: 345px;
+    box-sizing: border-box;
+}
+
+.question-container.active {
+    display: block;
+}
+
+/* Вопрос */
+.question {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Варианты ответа */
+.option {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 345px; /* ширина блока */
+    height: 90px; /* высота блока */
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    border-radius: 45px;
+    cursor: pointer;
+    padding-left: 10px; /* отступ слева */
+    box-sizing: border-box;
+}
+
+/* Радио кнопка внутри .option */
+.option input[type="radio"] {
+    margin-right: 15px; /* отступ между радиокнопкой и текстом */
+    flex-shrink: 0; /* чтобы радио не сжималось */
+}
+
+/* Метка для текста варианта ответа */
+.option label {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 30px); /* занимает всё пространство кроме радиокнопки и отступа */
+}
+
+/* Текст внутри варианта ответа */
+.option span {
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    overflow-wrap: break-word; /* перенос слов при необходимости */
+}
+
+/* Эффект при наведении на вариант */
+.option:hover {
+   background-color : rgba(144,128,208,1);
+}
+
+/* Стили для кнопки "Далее" */
+button {
+    padding: 12px 20px;
+    background-color: rgba(255,255,255,0.5);
+    color: black;
+    border:none;
+    border-radius:45px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:20px;
+    display:block;
+    width:auto; /* можно оставить auto или задать фиксированную ширину */
 }
 button:hover {
-   background-color:#45a049
+   background-color : rgba(144,128,208,1);
 }
-#result {
- text-align:center; margin-top:-10px;}
-#result h2 {margin-top:-10;}
-#restartBtn {margin-top:-10;}
+
+/* Контейнер результата (скрыт по умолчанию) */
+#result-container {
+    display:none;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.result-score {
+    font-size:24px;
+    font-weight:bold;
+}
+.diagnosis {
+    padding:15px;
+    border-radius:5px;
+    margin-top:-10px; /* чуть ближе к результату */
+}
+.mild { background:#FFF3CD; color:#856404;}
+.moderate { background:#FFE0A3; color:#D35400;}
+.severe { background:#F8D7DA; color:#721C24;}
+
+.progress-bar {
+   height :5px; 
+   background:#e0e0e0; 
+   margin-bottom :20px ; 
+   border-radius :5px ;
+}
+.progress {
+   height :100%; 
+   background:#4CAF50 ; 
+   width :0%; 
+   transition :width .3s ;
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-<h1>Тест на депрессию</h1>
-
-<div class="progress-container">
-<div class="progress-bar" id="progressBar"></div>
+<div class="progress-bar">
+ <div class="progress" id="progress"></div>
 </div>
 
 <!-- Вопросы -->
@@ -132,54 +186,64 @@ button:hover {
 </div>
 
 <div id="question2" class="question-container">
- <div class="question">2. За прошедшую неделю Вы чувствовали себя усталым или уставшим без видимой причины?</div>
+ <div class="question">2. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
  <div class="option">
-     <input type='radio' name='q2' value='0' id='q2a1'/>
-     <label for='q2a1'><span>Нет, я чувствую себя хорошо.</span></label>
+   <input type='radio' name='q2' value='0' id='q2a1'/>
+   <label for='q2a1'><span>Я не тревожусь о своем будущем.</span></label>
  </div>
-<div class='option'>
-     <input type='radio' name='q2' value='1' id='q2a2'/>
-     <label for='q2a2'><span>Иногда чувствовал усталость, но это было нечасто.</span></label>
+ <div class='option'>
+   <input type='radio' name='q2' value='1' id='q2a2'/>
+   <label for='q2a2'><span>Я чувствую, что озадачен будущим.</span></label>
  </div>
-<div class='option'>
-     <input type='radio' name='q2' value='2' id='q2a3'/>
-     <label for='q2a3'><span>Да, я часто чувствовал усталость без причины.</span></label>
+ <div class='option'>
+   <input type='radio' name='q2' value='2' id='q2a3'/>
+   <label for='q2a3'><span>Я чувствую, что меня ничего не ждет в будущем.</span></label>
  </div>
-<div class='option'>
-     <input type='radio' name='q2' value='3' id='q2a4'/>
-     <label for='q2a4'><span>Я постоянно уставший и не могу восстановиться.</span></label>
+ <div class='option'>
+   <input type='radio' name='q2' value='3' id='q2a4'/>
+   <label for='q2a4'><span>Мое будущее безнадежно, и ничто не может измениться к лучшему.</span></label>
  </div>
 </div>
 
-<div id="question3" class="question-container">
-<div class='question'>3. За прошедшую неделю Вы испытывали снижение интереса или удовольствия от деятельности?</div>
-<div class='option'>
-     <input type='radio' name='q3' value='0' id='q3a1'/>
-     <label for='q3a1'><span>Нет, всё было нормально.</span></label>
-</div>
-<div class='option'>
-     <input type='radio' name='q3' value='1' id='q3a2'/>
-     <label for='q3a2'><span>Иногда я терял интерес, но быстро возвращался к норме.</span></label>
-</div>
-<div class='option'>
-     <input type='radio' name='q3' value='2' id='q3a3'/>
-     <label for='q3a3'><span>Да, я часто терял интерес к вещам, которые раньше мне нравились.</span></label>
-</div>
-<div class='option'>
-     <input type='radio' name='q3' value='3' id='q3a4'/>
-     <label for='q3a4'><span>Я полностью потерял интерес к большинству дел и развлечений.</span></label>
-</div>
-</div>
+<!-- Можно добавить остальные вопросы по аналогии -->
 
-<!-- Результаты -->
-<div id="resultContainer" style="display:none;">
-<h2>Результаты теста:</h2>
-<p id ="result"></p><br/>
-<button onclick=restart()>Пройти заново</button><br/><br/>
+<!-- Например вопрос №3 -->
+<div id='question3' class='question-container'>
+<div class='question'>3. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
+<div class='option'>
+<input type='radio' name='q3' value='0' id='q3a1'/>
+<label for='q3a1'><span>Я не чувствую себя неудачником.</span></label>
 </div>
-
-<!-- Скрипты -->
-<script>
+<div class='option'>
+<input type='radio' name='q3' value='1' id='q3a2'/>
+<label for='q3a2'><span>Я чувствую, что терпел больше неудач, чем другие люди</span></label>
+</div>
+<div class='option'>
+<input type='radio' name='q3' value='2' id='q3a3'/>
+<label for='q3a3'><span>Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач.</span></label>
+</div>
+<div class='option'>
+<input type='radio' name='q3' value='3' id='q3a4'/>
+<label for='q3a4'><span>Я чувствую, что как личность я — полный неудачник.</span></label>
+</div>
+</div>
+</body>
+</html>
+<!-- Контейнер результатов -->
+<div id="result-container">
+  <h2>Результаты теста</h2>
+  <div class="result-score">Ваш результат: <span id="total-score">0</span></div>
+  <div class="diagnosis" id="diagnosis-text"></div>
+  <p id="result-description"></p>
+  <button onclick="restartTest()">Пройти заново</button>
+</div>
+<!-- Нижняя панель с иконками без фона -->
+<div class="bottom-nav">
+ <button class="icon-btn"><i class="fas fa-cog"></i></button>
+ <button class="icon-btn"><i class="fas fa-search"></i></button>
+ <button class="icon-btn"><i class="fas fa-user"></i></button>
+</div>
+ <script>
 // Общее количество вопросов
 const totalQuestions = 3;
 // Текущий номер вопрос
