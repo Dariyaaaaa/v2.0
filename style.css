@@ -176,6 +176,9 @@ h1 {
 button {
     padding: 12px 20px;
     background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      width: 213px; /* ширина блока */
+    height: 69px; /* высота блока */
     color: black;
     border:none;
     border-radius:45px;
