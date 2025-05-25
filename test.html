@@ -18,19 +18,19 @@
 <div id="question1" class="question-container active">
  <div class="question">1. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
  <div class="option">
-   <input type="radio" name="q1" value="0" id="q1a1" onchange='autoNext(1)'/>
+   <input type="radio" name="q1" value="0" id="q1a1" onchange='nextQuestion(1)'/>
    <label for="q1a1"><span>Я не чувствую себя расстроенным, печальным.</span></label>
  </div>
  <div class="option">
-   <input type="radio" name="q1" value="1" id="q1a2" onchange='autoNext(1)'/>
+   <input type="radio" name="q1" value="1" id="q1a2" onchange='nextQuestion(1)'/>
    <label for="q1a2"><span>Я расстроен.</span></label>
  </div>
  <div class="option">
-   <input type="radio" name="q1" value="2" id="q1a3" onchange='autoNext(1)'/>
+   <input type="radio" name="q1" value="2" id="q1a3" onchange='nextQuestion(1)'/>
    <label for="q1a3"><span>Я всё время расстроен и не могу от этого отключиться.</span></label>
  </div>
  <div class="option">
-   <input type="radio" name="q1" value="3" id="q1a4"onchange='autoNext(1)'/>
+   <input type="radio" name="q1" value="3" id="q1a4"onchange='nextQuestion(1)'/>
    <label for="q1a4"><span>Я настолько расстроен и несчастлив, что не могу это выдержать.</span></label>
  </div>
 </div>
@@ -38,19 +38,19 @@
 <div id="question2" class="question-container">
  <div class="question">2. Что лучше описывает Ваше состояние за прошедшую неделю и сегодня?</div>
  <div class="option">
-   <input type='radio' name='q2' value='0' id='q2a1' onchange='autoNext(2)'/>
+   <input type='radio' name='q2' value='0' id='q2a1' onchange='nextQuestion(2)'/>
    <label for='q2a1'><span>Я не тревожусь о своем будущем.</span></label>
  </div>
  <div class='option'>
-   <input type='radio' name='q2' value='1' id='q2a2'onchange='autoNext(2)'/>
+   <input type='radio' name='q2' value='1' id='q2a2'onchange='nextQuestion(2)'/>
    <label for='q2a2'><span>Я чувствую, что озадачен будущим.</span></label>
  </div>
  <div class='option'>
-   <input type='radio' name='q2' value='2' id='q2a3'onchange='autoNext(2)'/>
+   <input type='radio' name='q2' value='2' id='q2a3'onchange='nextQuestion(2)'/>
    <label for='q2a3'><span>Я чувствую, что меня ничего не ждет в будущем.</span></label>
  </div>
  <div class='option'>
-   <input type='radio' name='q2' value='3' id='q2a4'onchange='autoNext(2)'/>
+   <input type='radio' name='q2' value='3' id='q2a4'onchange='nextQuestion(2)'/>
    <label for='q2a4'><span>Мое будущее безнадежно, и ничто не может измениться к лучшему.</span></label>
  </div>
 <button onclick="prevQuestion(2)" id="backBtn2">Назад</button>
@@ -77,7 +77,7 @@
 <input type='radio' name='q3' value='3' id='q3a4'onchange='autoNext(3)'/>
 <label for='q3a4'><span>Я чувствую, что как личность я — полный неудачник.</span></label>
 </div>
-  <button onclick="prevQuestion(2)" id="backBtn2">Назад</button>
+  <button onclick="prevQuestion(3)" id="backBtn2">Назад</button>
 </div>
 </body>
 </html>
