@@ -230,29 +230,6 @@ button:hover {
 </div>
 <button onclick='nextQuestion(3)'>Далее</button>
 </div>
-
-<!-- Скрипт для переключения вопросов -->
-<script>
-// Переключение вопросов
-function nextQuestion(currentNumber) {
- const currentId = 'question'+currentNumber;
- const nextId = 'question'+(currentNumber+1);
- document.getElementById(currentId).classList.remove('active');
- const nextQuestion = document.getElementById(nextId);
- if(nextQuestion){
-     nextQuestion.classList.add('active');
- }
- // Обновление прогресс-бара
- const progress = document.getElementById('progress');
- let percent = (currentNumber / totalQuestions) *100 ;
- progress.style.width = percent + '%';
-}
-
-// Общее количество вопросов
-const totalQuestions = 3;
-
-</script>
-
 </body>
 </html>
 <!-- Контейнер результатов -->
