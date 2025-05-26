@@ -6,54 +6,59 @@
     <title>Тест на уровень депрессии</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-<!-- Подключение шрифта Comfortaa -->
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet" />
+    <!-- Подключение шрифта Comfortaa -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet" />
 
-<!-- Внешний CSS -->
-<link rel="stylesheet" href="style.css" />
+    <!-- Внешний CSS -->
+    <link rel="stylesheet" href="style.css" />
     <style>
         .question-container {
             margin-bottom: 20px;
             display: none;
         }
-.question-container.active {
-    display: flex; /* делаем флекс-контейнер */
-    justify-content: center; /* горизонтальное выравнивание */
-    align-items: center; /* вертикальное выравнивание */
-    flex-direction: column; /* чтобы внутри было вертикальное расположение элементов, если нужно */
-}
+
+        .question-container.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
         .question {
             font-size: 18px;
             margin-bottom: 20px;
             font-weight: bold;
-            
         }
-.option {
-    margin: 15px 0;
-    width: 345px;
-    height: 90px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 45px;
-    cursor: pointer;
-    display: flex; /* для центрирования */
-    align-items: center; /* вертикальное центрирование */
-    justify-content: center; /* горизонтальное центрирование */
-    font-size: 20px; /* размер шрифта */
-    padding: 0 20px; /* внутренние отступы для текста */
-    box-sizing: border-box; /* чтобы padding учитывался в ширине/высоте */
-    text-align: center; /* выравнивание текста по центру */
-    overflow-wrap: break-word; /* перенос длинных слов */
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
+
+        .option {
+            margin: 15px 0;
+            width: 345px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow-wrap: break-word;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
         .option:hover {
-         background-color : rgba(144,128,208,1);
+            background-color: rgba(144, 128, 208, 1);
         }
+
         .option input {
             position: absolute;
             left: 10px;
             top: 15px;
             cursor: pointer;
         }
+
         button {
             padding: 12px 20px;
             background: #4CAF50;
@@ -65,65 +70,83 @@
             margin-top: 20px;
             display: block;
             width: 100%;
-                width: 210px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.5);
+            width: 210px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.5);
         }
+
         button:hover {
             background: #45a049;
         }
-            /* Стиль для кнопки "Назад" */
- .back-button {
+
+        /* Стиль для обертки кнопки "Назад" */
+        .back-button-wrapper {
+            width: 100%;  /* Занимает всю ширину контейнера */
+            display: flex;
+            justify-content: flex-start; /* Выравнивание по левому краю */
+            margin-top: 15px; /* Отступ сверху, как между вариантами ответов */
+        }
+
+        /* Стиль для кнопки "Назад" */
+        .back-button {
             display: inline-block;
             padding: 8px 16px;
-            margin-top: 10px;
             background: rgba(255, 255, 255, 0.5);
             border: none;
-            border-radius:45px;
-            cursor:pointer;
-            color: black; /* Цвет текста кнопки "Назад" */
-         align-self: flex-start; /* Это выравнивает кнопку по левому краю */
-    margin-left: 0; /* Убираем стандартный отступ слева */
-}
-.back-button:hover {
-  background-color : rgba(144,128,208,1);
-}
+            border-radius: 45px;
+            cursor: pointer;
+            color: black;
+            /* align-self: flex-start; Убрано, теперь это делается в обертке */
+            margin-left: 0; /* Убираем стандартный отступ слева */
+        }
+
+        .back-button:hover {
+            background-color: #bbb;
+        }
+
         #result-container {
             display: none;
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .result-score {
             font-size: 24px;
             font-weight: bold;
             margin: 20px 0;
         }
+
         .diagnosis {
             padding: 15px;
             border-radius: 5px;
             margin: 20px 0;
             font-weight: bold;
         }
+
         .mild {
             background-color: #FFF3CD;
             color: #856404;
         }
+
         .moderate {
             background-color: #FFE0A3;
             color: #D35400;
         }
+
         .severe {
             background-color: #F8D7DA;
             color: #721C24;
         }
+
         .progress-bar {
             height: 5px;
             background: #e0e0e0;
             margin-bottom: 20px;
             border-radius: 5px;
         }
+
         .progress {
             height: 100%;
             background: #4CAF50;
@@ -131,40 +154,44 @@
             width: 0%;
             transition: width 0.3s;
         }
+
         .option-text {
             display: inline-block;
             vertical-align: middle;
             width: calc(100% - 30px);
         }
+
         /* Нижняя панель с иконками без фона */
-.bottom-nav {
-  display:flex; 
-  justify-content:space-around; 
-  align-items:center; 
-  width:100%; 
-  position:fixed; 
-  bottom:0; 
-  left:0; 
-  right:0; 
-  background:transparent; /* прозрачный фон */
-  padding:10px 0;
-}
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: transparent;
+            /* прозрачный фон */
+            padding: 10px 0;
+        }
 
-/* Кнопки-иконки */
-.icon-btn {
-   background:none; 
-   border:none; 
-   cursor:pointer; 
-   padding:10px; 
-   font-size:24px; 
-   color:#333; 
-   transition:.2s all ease-in-out;
-}
+        /* Кнопки-иконки */
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 24px;
+            color: #333;
+            transition: .2s all ease-in-out;
+        }
 
-.icon-btn:hover,
-.icon-btn :active { /* можно оставить так для эффекта наведения и нажатия одновременно */   
-   background-color : rgba(144,128,208,1);
-}
+        .icon-btn:hover,
+        .icon-btn :active {
+            /* можно оставить так для эффекта наведения и нажатия одновременно */
+            background-color: rgba(144, 128, 208, 1);
+        }
     </style>
 </head>
 <body>
@@ -174,177 +201,366 @@
 
 <!-- Нижняя панель с иконками без фона -->
 <div class="bottom-nav">
- <button class="icon-btn"><i class="fas fa-cog"></i></button>
- <button class="icon-btn"><i class="fas fa-search"></i></button>
- <button class="icon-btn"><i class="fas fa-user"></i></button>
+    <button class="icon-btn"><i class="fas fa-cog"></i></button>
+    <button class="icon-btn"><i class="fas fa-search"></i></button>
+    <button class="icon-btn"><i class="fas fa-user"></i></button>
 </div>
 
 <!-- Контейнеры с вопросами -->
 <div id="question1" class="question-container active">
-   <div class="question">1. Я не чувствую себя расстроенным, печальным.</div>
-   <div class="option" onclick="selectAnswer(1,0)">0 - Я не чувствую себя расстроенным, печальным.</div>
-   <div class="option" onclick="selectAnswer(1,1)">1 - Я расстроен.</div>
-   <div class="option" onclick="selectAnswer(1,2)">2 - Я все время расстроен и не могу от этого отключиться.</div>
-   <div class="option" onclick="selectAnswer(1,3)">3 - Я настолько расстроен и несчастлив, что не могу это выдержать.</div>
+    <div class="question">1. Я не чувствую себя расстроенным, печальным.</div>
+    <div class="option" onclick="selectAnswer(1,0)">0 - Я не чувствую себя расстроенным, печальным.</div>
+    <div class="option" onclick="selectAnswer(1,1)">1 - Я расстроен.</div>
+    <div class="option" onclick="selectAnswer(1,2)">2 - Я все время расстроен и не могу от этого отключиться.</div>
+    <div class="option" onclick="selectAnswer(1,3)">3 - Я настолько расстроен и несчастлив, что не могу это выдержать.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
 </div>
 
 <div id="question2" class="question-container">
-   <div class="question">2. Я не тревожусь о своем будущем.</div>
-   <div class='option' onclick='selectAnswer(2,0)'>0 - Я не тревожусь о своем будущем.</div>
-   <div class='option' onclick='selectAnswer(2,1)'>1 - Я чувствую, что озадачен будущим.</div>
-   <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
-   <div class='option' onclick='selectAnswer(2,3)'>3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>   
+    <div class="question">2. Я не тревожусь о своем будущем.</div>
+    <div class='option' onclick='selectAnswer(2,0)'>0 - Я не тревожусь о своем будущем.</div>
+    <div class='option' onclick='selectAnswer(2,1)'>1 - Я чувствую, что озадачен будущим.</div>
+    <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
+    <div class='option' onclick='selectAnswer(2,3)'>3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
 </div>
 <div id="question3" class="question-container">
-   <div class="question">3. Я не чувствую себя неудачником.</div>
-   <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
-   <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
-   <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
-   <div class='option' onclick= 'selectAnswer(3,3)'>3 - Я чувствую, что как личность я — полный неудачник.</div> 
+    <div class="question">3. Я не чувствую себя неудачником.</div>
+    <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
+    <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
+    <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
+    <div class='option' onclick= 'selectAnswer(3,3)'>3 - Я чувствую, что как личность я — полный неудачник.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
 </div>
+<div id="question4" class="question-container">
+    <div class="question">4. Я получаю столько же удовольствия от вещей, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(4,0)'>0 - Я получаю столько же удовольствия от вещей, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(4,1)'>1 - Я не особенно получаю удовольствие от вещей.</div>
+    <div class='option' onclick= 'selectAnswer(4,2)'>2 - Меня мало что радует.</div>
+    <div class='option' onclick= 'selectAnswer(4,3)'>3 - Я не получаю никакого удовольствия от вещей.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question5" class="question-container">
+    <div class="question">5. Я не чувствую себя виноватым.</div>
+    <div class='option' onclick= 'selectAnswer(5,0)'>0 - Я не чувствую себя виноватым.</div>
+    <div class='option' onclick= 'selectAnswer(5,1)'>1 - Я довольно часто чувствую себя виноватым.</div>
+    <div class='option' onclick= 'selectAnswer(5,2)'>2 - Я чувствую себя виноватым большую часть времени.</div>
+    <div class='option' onclick= 'selectAnswer(5,3)'>3 - Я все время чувствую себя виноватым.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question6" class="question-container">
+    <div class="question">6. Я не чувствую, что меня наказывают.</div>
+    <div class='option' onclick= 'selectAnswer(6,0)'>0 - Я не чувствую, что меня наказывают.</div>
+    <div class='option' onclick= 'selectAnswer(6,1)'>1 - Я чувствую, что могу быть наказан.</div>
+    <div class='option' onclick= 'selectAnswer(6,2)'>2 - Я жду, что меня накажут.</div>
+    <div class='option' onclick= 'selectAnswer(6,3)'>3 - Я чувствую, что меня наказывают.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад">
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question7" class="question-container">
+    <div class="question">7. Я не разочарован в себе.</div>
+    <div class='option' onclick= 'selectAnswer(7,0)'>0 - Я не разочарован в себе.</div>
+    <div class='option' onclick= 'selectAnswer(7,1)'>1 - Я разочарован в себе.</div>
+    <div class='option' onclick= 'selectAnswer(7,2)'>2 - Я испытываю отвращение к себе.</div>
+    <div class='option' onclick= 'selectAnswer(7,3)'>3 - Я ненавижу себя.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question8" class="question-container">
+    <div class="question">8. Я не чувствую себя хуже других.</div>
+    <div class='option' onclick= 'selectAnswer(8,0)'>0 - Я не чувствую себя хуже других.</div>
+    <div class='option' onclick= 'selectAnswer(8,1)'>1 - Я критикую себя за свои слабости и ошибки.</div>
+    <div class='option' onclick= 'selectAnswer(8,2)'>2 - Я постоянно виню себя за свои ошибки.</div>
+    <div class='option' onclick= 'selectAnswer(8,3)'>3 - Я виню себя за все плохое, что происходит.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question9" class="question-container">
+    <div class="question">9. У меня нет мыслей о самоубийстве.</div>
+    <div class='option' onclick= 'selectAnswer(9,0)'>0 - У меня нет мыслей о самоубийстве.</div>
+    <div class='option' onclick= 'selectAnswer(9,1)'>1 - У меня есть мысли о самоубийстве, но я не стал бы их совершать.</div>
+    <div class='option' onclick= 'selectAnswer(9,2)'>2 - Я хотел бы покончить с собой.</div>
+    <div class='option' onclick= 'selectAnswer(9,3)'>3 - Я бы убил себя, если бы у меня была возможность.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question10" class="question-container">
+    <div class="question">10. Я плачу не больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(10,0)'>0 - Я плачу не больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(10,1)'>1 - Я плачу больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(10,2)'>2 - Я плачу по любому поводу.</div>
+    <div class='option' onclick= 'selectAnswer(10,3)'>3 - Раньше я мог плакать, а сейчас не могу, даже если хочу.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question11" class="question-container">
+    <div class="question">11. Я не более раздражителен, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(11,0)'>0 - Я не более раздражителен, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(11,1)'>1 - Я более раздражителен, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(11,2)'>2 - Я гораздо более раздражителен, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(11,3)'>3 - Я все время чувствую себя раздраженным.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;'onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question12" class="question-container">
+    <div class="question">12. Я не утратил интерес к другим людям.</div>
+    <div class='option' onclick= 'selectAnswer(12,0)'>0 - Я не утратил интерес к другим людям.</div>
+    <div class='option' onclick= 'selectAnswer(12,1)'>1 - Я меньше интересуюсь другими людьми, чем раньше.</div>
+    <div class='option' onclick= 'selectAnswer(12,2)'>2 - Я почти утратил всякий интерес к другим людям.</div>
+    <div class='option' onclick= 'selectAnswer(12,3)'>3 - Я полностью утратил интерес к другим людям.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question13" class="question-container">
+    <div class="question">13. Я принимаю решения так же легко, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(13,0)'>0 - Я принимаю решения так же легко, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(13,1)'>1 - Я откладываю принятие решений больше, чем раньше.</div>
+    <div class='option' onclick= 'selectAnswer(13,2)'>2 - Мне труднее принимать решения, чем раньше.</div>
+    <div class='option' onclick= 'selectAnswer(13,3)'>3 - Я вообще не могу принимать решения.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question14" class="question-container">
+    <div class="question">14. Я не чувствую, что выгляжу хуже, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(14,0)'>0 - Я не чувствую, что выгляжу хуже, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(14,1)'>1 - Меня беспокоит, что я выгляжу старым и непривлекательным.</div>
+    <div class='option' onclick= 'selectAnswer(14,2)'>2 - Я чувствую, что во внешности произошли необратимые изменения, и из-за этого я выгляжу непривлекательно.</div>
+    <div class='option' onclick= 'selectAnswer(14,3)'>3 - Я считаю себя уродом.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question15" class="question-container">
+    <div class="question">15. Я работаю так же хорошо, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(15,0)'>0 - Я работаю так же хорошо, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(15,1)'>1 - Мне требуется больше усилий, чтобы что-то сделать.</div>
+    <div class='option' onclick= 'selectAnswer(15,2)'>2 - Я не могу делать никакую работу.</div>
+    <div class='option' onclick= 'selectAnswer(15,3)'>3 - Я не могу выполнять никакую работу.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question16" class="question-container">
+    <div class="question">16. Я могу спать так же хорошо, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(16,0)'>0 - Я могу спать так же хорошо, как и раньше.</div>
+    <div class='option' onclick= 'selectAnswer(16,1)'>1 - Я сплю не так хорошо, как раньше.</div>
+    <div class='option' onclick= 'selectAnswer(16,2)'>2 - Я просыпаюсь на 1-2 часа раньше, чем обычно, и мне трудно заснуть.</div>
+    <div class='option' onclick= 'selectAnswer(16,3)'>3 - Я просыпаюсь на несколько часов раньше,чем обычно, и не могу снова заснуть.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question17" class="question-container">
+    <div class="question">17. Я не чувствую себя уставшим больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(17,0)'>0 - Я не чувствую себя уставшим больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(17,1)'>1 - Я устаю больше, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(17,2)'>2 - Я устаю почти от всего, что делаю.</div>
+    <div class='option' onclick= 'selectAnswer(17,3)'>3 - Я слишком устал, чтобы что-нибудь делать.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question18" class="question-container">
+    <div class="question">18. Мой аппетит не хуже обычного.</div>
+    <div class='option' onclick= 'selectAnswer(18,0)'>0 - Мой аппетит не хуже обычного.</div>
+    <div class='option' onclick= 'selectAnswer(18,1)'>1 - Мой аппетит не так хорош, как раньше.</div>
+    <div class='option' onclick= 'selectAnswer(18,2)'>2 - Мой аппетит намного хуже, чем раньше.</div>
+    <div class='option' onclick= 'selectAnswer(18,3)'>3 - У меня вообще нет аппетита.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question19" class="question-container">
+    <div class="question">19. В последнее время я не похудел.</div>
+    <div class='option' onclick= 'selectAnswer(19,0)'>0 - В последнее время я не похудел.</div>
+    <div class='option' onclick= 'selectAnswer(19,1)'>1 - Я похудел более чем на 2,5 кг.</div>
+    <div class='option' onclick= 'selectAnswer(19,2)'>2 - Я похудел более чем на 5 кг.</div>
+    <div class='option' onclick= 'selectAnswer(19,3)'>3 - Я похудел более чем на 7 кг.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question20" class="question-container">
+    <div class="question">20. Я не больше беспокоюсь о своем здоровье, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(20,0)'>0 - Я не больше беспокоюсь о своем здоровье, чем обычно.</div>
+    <div class='option' onclick= 'selectAnswer(20,1)'>1 - Меня беспокоят физические проблемы, такие как боли, расстройство желудка, запор.</div>
+    <div class='option' onclick= 'selectAnswer(20,2)'>2 - Я очень беспокоюсь о своих физических проблемах, и мне трудно думать о чем-либо другом.</div>
+    <div class='option' onclick= 'selectAnswer(20,3)'>3 - Я настолько беспокоюсь о своих физических проблемах, что не могу думать ни о чем другом.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+<div id="question21" class="question-container">
+    <div class="question">21. Я не замечал в последнее время никаких изменений в своем интересе к сексу.</div>
+    <div class='option' onclick= 'selectAnswer(21,0)'>0 - Я не замечал в последнее время никаких изменений в своем интересе к сексу.</div>
+    <div class='option' onclick= 'selectAnswer(21,1)'>1 - Меня меньше интересует секс, чем раньше.</div>
+    <div class='option' onclick= 'selectAnswer(21,2)'>2 - У меня сейчас гораздо меньше интереса к сексу.</div>
+    <div class='option' onclick= 'selectAnswer(21,3)'>3 - Я полностью утратил интерес к сексу.</div>
+    <div class="back-button-wrapper">  <!-- Обертка для кнопки "Назад" -->
+        <button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+    </div>
+</div>
+
 <!-- Контейнер с результатами -->
 <div id='result-container' style='display:none;'>
-<h2>Результаты теста</h2>
-<div class='result-score'>Ваш результат: <span id='total-score'>0</span> баллов</div>
-<div class='diagnosis' id='diagnosis-text'>Результат</div>
-<p id='result-description'>Описание результата</p>
-<button onclick='restartTest()'>Пройти тест снова</button>
+    <h2>Результаты теста</h2>
+    <div class='result-score'>Ваш результат: <span id='total-score'>0</span> баллов</div>
+    <div class='diagnosis' id='diagnosis-text'>Результат</div>
+    <p id='result-description'>Описание результата</p>
+    <button onclick='restartTest()'>Пройти тест снова</button>
 </div>
-<button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+
 <script>
-// Объект для хранения ответов
-const answers = {};
-let totalScore = 0;
-let currentQuestionNumber = 1; // Текущий номер вопроса
-const totalQuestions = document.querySelectorAll('.question-container').length; // Общее кол-во вопросов
+    // Объект для хранения ответов
+    const answers = {};
+    let totalScore = 0;
+    let currentQuestionNumber = 1; // Текущий номер вопроса
+    const totalQuestions = document.querySelectorAll('.question-container').length; // Общее кол-во вопросов
 
-// Функция для обновления прогресса
-function updateProgress(questionNumber) {
-    const progressPercent = (questionNumber - 1) / totalQuestions * 100;
-    document.getElementById('progress').style.width = progressPercent + '%';
-}
-
-// Функция для выбора ответа
-function selectAnswer(questionNumber, answerValue) {
-    answers[questionNumber] = answerValue;
-    showNextQuestion(questionNumber); // Переход к следующему вопросу после выбора ответа
-}
-
-// Функция для отображения следующего вопроса
-function showNextQuestion(currentQuestionNumber) {
-    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
-    const nextQuestionNumber = currentQuestionNumber + 1;
-    const nextQuestion = document.getElementById(`question${nextQuestionNumber}`);
-
-    if (nextQuestion) {
-        currentQuestion.classList.remove('active');
-        nextQuestion.classList.add('active');
-        updateProgress(nextQuestionNumber);
-        showBackButton(); // Показываем кнопку "Назад"
-    } else {
-        // Если вопросов больше нет, отображаем результаты
-        showResults();
+    // Функция для обновления прогресса
+    function updateProgress(questionNumber) {
+        const progressPercent = (questionNumber - 1) / totalQuestions * 100;
+        document.getElementById('progress').style.width = progressPercent + '%';
     }
-}
 
-// Функция для возврата к предыдущему вопросу
-function goBack() {
-    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
-    const previousQuestionNumber = currentQuestionNumber - 1;
-    const previousQuestion = document.getElementById(`question${previousQuestionNumber}`);
+    // Функция для выбора ответа
+    function selectAnswer(questionNumber, answerValue) {
+        answers[questionNumber] = answerValue;
+        showNextQuestion(questionNumber); // Переход к следующему вопросу после выбора ответа
+    }
 
-    if (previousQuestion) {
-        currentQuestion.classList.remove('active');
-        previousQuestion.classList.add('active');
-        updateProgress(previousQuestionNumber);
-        currentQuestionNumber = previousQuestionNumber;
+    // Функция для отображения следующего вопроса
+    function showNextQuestion(currentQuestionNumber) {
+        const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+        const nextQuestionNumber = currentQuestionNumber + 1;
+        const nextQuestion = document.getElementById(`question${nextQuestionNumber}`);
 
-        // Скрываем кнопку "Назад", если вернулись к первому вопросу
-        if (currentQuestionNumber === 1) {
-            hideBackButton();
+        if (nextQuestion) {
+            currentQuestion.classList.remove('active');
+            nextQuestion.classList.add('active');
+            updateProgress(nextQuestionNumber);
+            showBackButton(); // Показываем кнопку "Назад"
+        } else {
+            // Если вопросов больше нет, отображаем результаты
+            showResults();
         }
     }
-}
 
-// Функция для отображения результатов
-function showResults() {
-    // Скрываем все вопросы
-    const questions = document.querySelectorAll('.question-container');
-    questions.forEach(question => question.style.display = 'none');
+    // Функция для возврата к предыдущему вопросу
+    function goBack() {
+        const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+        const previousQuestionNumber = currentQuestionNumber - 1;
+        const previousQuestion = document.getElementById(`question${previousQuestionNumber}`);
 
-    // Скрываем нижнюю панель навигации
-    document.querySelector('.bottom-nav').style.display = 'none';
-    hideBackButton();
+        if (previousQuestion) {
+            currentQuestion.classList.remove('active');
+            previousQuestion.classList.add('active');
+            updateProgress(previousQuestionNumber);
+            currentQuestionNumber = previousQuestionNumber;
 
-    // Вычисляем общий балл
-    totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
-
-    // Отображаем контейнер с результатами
-    document.getElementById('result-container').style.display = 'block';
-    document.getElementById('total-score').textContent = totalScore;
-
-    // Выводим диагноз и описание
-    const diagnosisText = document.getElementById('diagnosis-text');
-    const resultDescription = document.getElementById('result-description');
-
-    // Логика определения диагноза и описания
-    if (totalScore <= 9) {
-        diagnosisText.textContent = 'Отсутствие или минимальная депрессия';
-        resultDescription.textContent = 'У вас нет признаков депрессии или они минимальны.';
-    } else if (totalScore <= 16) {
-        diagnosisText.textContent = 'Легкая депрессия';
-        resultDescription.textContent = 'У вас легкая форма депрессии. Рекомендуется обратить внимание на свое состояние и обратиться к специалисту, если симптомы ухудшатся.';
-    } else if (totalScore <= 23) {
-        diagnosisText.textContent = 'Умеренная депрессия';
-        resultDescription.textContent = 'У вас умеренная форма депрессии. Рекомендуется обратиться к врачу для консультации и возможного лечения.';
-    } else if (totalScore <= 30) {
-        diagnosisText.textContent = 'Выраженная депрессия';
-        resultDescription.textContent = 'У вас выраженная форма депрессии. Необходима консультация врача и, возможно, медикаментозное лечение.';
-    } else {
-        diagnosisText.textContent = 'Тяжелая депрессия';
-        resultDescription.textContent = 'У вас тяжелая форма депрессии. Немедленно обратитесь к врачу!';
+            // Скрываем кнопку "Назад", если вернулись к первому вопросу
+            if (currentQuestionNumber === 1) {
+                hideBackButton();
+            }
+        }
     }
 
-}
+    // Функция для отображения результатов
+    function showResults() {
+        // Скрываем все вопросы
+        const questions = document.querySelectorAll('.question-container');
+        questions.forEach(question => question.style.display = 'none');
 
-// Функция для перезапуска теста
-function restartTest() {
-    // Сбрасываем ответы
-    for (let key in answers) {
-        delete answers[key];
+        // Скрываем нижнюю панель навигации
+        document.querySelector('.bottom-nav').style.display = 'none';
+        hideBackButton();
+
+        // Вычисляем общий балл
+        totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+
+        // Отображаем контейнер с результатами
+        document.getElementById('result-container').style.display = 'block';
+        document.getElementById('total-score').textContent = totalScore;
+
+        // Выводим диагноз и описание
+const diagnosisText = document.getElementById('diagnosis-text');
+        const resultDescription = document.getElementById('result-description');
+
+        // Логика определения диагноза и описания
+        if (totalScore <= 9) {
+            diagnosisText.textContent = 'Отсутствие или минимальная депрессия';
+            resultDescription.textContent = 'У вас нет признаков депрессии или они минимальны.';
+        } else if (totalScore <= 16) {
+            diagnosisText.textContent = 'Легкая депрессия';
+            resultDescription.textContent = 'У вас легкая форма депрессии. Рекомендуется обратить внимание на свое состояние и обратиться к специалисту, если симптомы ухудшатся.';
+        } else if (totalScore <= 23) {
+            diagnosisText.textContent = 'Умеренная депрессия';
+            resultDescription.textContent = 'У вас умеренная форма депрессии. Рекомендуется обратиться к врачу для консультации и возможного лечения.';
+        } else if (totalScore <= 30) {
+            diagnosisText.textContent = 'Выраженная депрессия';
+            resultDescription.textContent = 'У вас выраженная форма депрессии. Необходима консультация врача и, возможно, медикаментозное лечение.';
+        } else {
+            diagnosisText.textContent = 'Тяжелая депрессия';
+            resultDescription.textContent = 'У вас тяжелая форма депрессии. Немедленно обратитесь к врачу!';
+        }
+
     }
-    totalScore = 0;
-    currentQuestionNumber = 1;
 
-    // Скрываем контейнер с результатами
-    document.getElementById('result-container').style.display = 'none';
+    // Функция для перезапуска теста
+    function restartTest() {
+        // Сбрасываем ответы
+        for (let key in answers) {
+            delete answers[key];
+        }
+        totalScore = 0;
+        currentQuestionNumber = 1;
 
-    // Отображаем первый вопрос
-    document.querySelectorAll('.question-container').forEach(question => question.style.display = 'block');
-    document.getElementById('question1').classList.add('active');
+        // Скрываем контейнер с результатами
+        document.getElementById('result-container').style.display = 'none';
 
-    // Показываем нижнюю панель навигации
-    document.querySelector('.bottom-nav').style.display = 'flex';
+        // Отображаем первый вопрос
+        document.querySelectorAll('.question-container').forEach(question => question.style.display = 'block');
+        document.getElementById('question1').classList.add('active');
 
-    // Обновляем прогресс
+        // Показываем нижнюю панель навигации
+        document.querySelector('.bottom-nav').style.display = 'flex';
+
+        // Обновляем прогресс
+        updateProgress(1);
+        hideBackButton();
+    }
+
+    // Функция для отображения кнопки "Назад"
+    function showBackButton() {
+        document.getElementById('global-back-btn').style.display = 'block';
+    }
+
+    // Функция для скрытия кнопки "Назад"
+    function hideBackButton() {
+        document.getElementById('global-back-btn').style.display = 'none';
+    }
+
+    // Инициализация прогресса при загрузке страницы
     updateProgress(1);
-    hideBackButton();
-}
-
-// Функция для отображения кнопки "Назад"
-function showBackButton() {
-    document.getElementById('global-back-btn').style.display = 'block';
-}
-
-// Функция для скрытия кнопки "Назад"
-function hideBackButton() {
-    document.getElementById('global-back-btn').style.display = 'none';
-}
-
-// Инициализация прогресса при загрузке страницы
-updateProgress(1);
-hideBackButton(); // Скрываем кнопку "Назад" при загрузке страницы
-
+    hideBackButton(); // Скрываем кнопку "Назад" при загрузке страницы
 </script>
-
 </body>
+</html>
