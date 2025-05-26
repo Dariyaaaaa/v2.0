@@ -211,111 +211,136 @@
 // Объект для хранения ответов
 const answers = {};
 let totalScore = 0;
+let currentQuestionNumber = 1; // Текущий номер вопроса
+const totalQuestions = document.querySelectorAll('.question-container').length; // Общее кол-во вопросов
 
-// Обновление прогресса
+// Функция для обновления прогресса
 function updateProgress(questionNumber) {
- const totalQuestions = document.querySelectorAll('.question-container').length;
- const progressPercent = (questionNumber -1) / totalQuestions *100; 
- document.getElementById('progress').style.width = progressPercent + '%';
-}
-
-let currentQuestionNumber = 1;
-
-function updateProgress(questionNumber) {
-    const totalQuestions = document.querySelectorAll('.question-container').length;
     const progressPercent = (questionNumber - 1) / totalQuestions * 100;
     document.getElementById('progress').style.width = progressPercent + '%';
+}
 
-    // Обновляем текущий номер вопроса
-    currentQuestionNumber = questionNumber;
+// Функция для выбора ответа
+function selectAnswer(questionNumber, answerValue) {
+    answers[questionNumber] = answerValue;
+    showNextQuestion(questionNumber); // Переход к следующему вопросу после выбора ответа
+}
 
-    // Показываем или скрываем кнопку назад
-    if (questionNumber > 1) {
-        document.getElementById('global-back-btn').style.display = 'inline-block';
+// Функция для отображения следующего вопроса
+function showNextQuestion(currentQuestionNumber) {
+    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+    const nextQuestionNumber = currentQuestionNumber + 1;
+    const nextQuestion = document.getElementById(`question${nextQuestionNumber}`);
+
+    if (nextQuestion) {
+        currentQuestion.classList.remove('active');
+        nextQuestion.classList.add('active');
+        updateProgress(nextQuestionNumber);
+        showBackButton(); // Показываем кнопку "Назад"
     } else {
-        document.getElementById('global-back-btn').style.display = 'none';
+        // Если вопросов больше нет, отображаем результаты
+        showResults();
     }
 }
-function prevQuestion() {
-    if (currentQuestionNumber > 1) {
-        const currentDiv = document.getElementById('question' + currentQuestionNumber);
-        currentDiv.classList.remove('active');
 
-        const prevQuestionNumber = currentQuestionNumber - 1;
-        const prevDiv = document.getElementById('question' + prevQuestionNumber);
-        if (prevDiv) {
-            prevDiv.classList.add('active');
-            updateProgress(prevQuestionNumber);
+// Функция для возврата к предыдущему вопросу
+function goBack() {
+    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+    const previousQuestionNumber = currentQuestionNumber - 1;
+    const previousQuestion = document.getElementById(`question${previousQuestionNumber}`);
+
+    if (previousQuestion) {
+        currentQuestion.classList.remove('active');
+        previousQuestion.classList.add('active');
+        updateProgress(previousQuestionNumber);
+        currentQuestionNumber = previousQuestionNumber;
+
+        // Скрываем кнопку "Назад", если вернулись к первому вопросу
+        if (currentQuestionNumber === 1) {
+            hideBackButton();
         }
     }
 }
 
-function nextQuestion(questionNumber) {
-    const currentDiv = document.getElementById('question' + questionNumber);
-    currentDiv.classList.remove('active');
-
-    const nextQNum = questionNumber + 1;
-    const nextDiv = document.getElementById('question' + nextQNum);
-    if (nextDiv) {
-        nextDiv.classList.add('active');
-        updateProgress(nextQNum);
-    } else {
-        showResults();
-}
-
-// Обработка выбора ответа
-function selectAnswer(questionNumber, answerValue) {
- answers['q'+ questionNumber] = answerValue;
-
- // подсчет баллов
- totalScore += answerValue;
-
- // Переход к следующему вопросу
- nextQuestion(questionNumber);
-}
-
-// Показываем результаты
+// Функция для отображения результатов
 function showResults() {
- // скрываем все вопросы
- document.querySelectorAll('.question-container').forEach(div => div.classList.remove('active'));
- // показываем контейнер с результатами
- document.getElementById('result-container').style.display='block';
+    // Скрываем все вопросы
+    const questions = document.querySelectorAll('.question-container');
+    questions.forEach(question => question.style.display = 'none');
 
- // выводим сумму баллов
- document.getElementById('total-score').textContent= totalScore;
+    // Скрываем нижнюю панель навигации
+    document.querySelector('.bottom-nav').style.display = 'none';
+    hideBackButton();
 
- // Можно добавить диагностику по результатам
- let diagnosisText='';
- if(totalScore <=4){
-     diagnosisText='Ваш результат показывает низкий уровень.';
- } else if(totalScore <=8){
-     diagnosisText='Ваш результат средний.';
- } else{
-     diagnosisText='Ваш результат высокий.';
- }
- document.getElementById('diagnosis-text').textContent=diagnosisText;
+    // Вычисляем общий балл
+    totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+
+    // Отображаем контейнер с результатами
+    document.getElementById('result-container').style.display = 'block';
+    document.getElementById('total-score').textContent = totalScore;
+
+    // Выводим диагноз и описание
+    const diagnosisText = document.getElementById('diagnosis-text');
+    const resultDescription = document.getElementById('result-description');
+
+    // Логика определения диагноза и описания
+    if (totalScore <= 9) {
+        diagnosisText.textContent = 'Отсутствие или минимальная депрессия';
+        resultDescription.textContent = 'У вас нет признаков депрессии или они минимальны.';
+    } else if (totalScore <= 16) {
+        diagnosisText.textContent = 'Легкая депрессия';
+        resultDescription.textContent = 'У вас легкая форма депрессии. Рекомендуется обратить внимание на свое состояние и обратиться к специалисту, если симптомы ухудшатся.';
+    } else if (totalScore <= 23) {
+        diagnosisText.textContent = 'Умеренная депрессия';
+        resultDescription.textContent = 'У вас умеренная форма депрессии. Рекомендуется обратиться к врачу для консультации и возможного лечения.';
+    } else if (totalScore <= 30) {
+        diagnosisText.textContent = 'Выраженная депрессия';
+        resultDescription.textContent = 'У вас выраженная форма депрессии. Необходима консультация врача и, возможно, медикаментозное лечение.';
+    } else {
+        diagnosisText.textContent = 'Тяжелая депрессия';
+        resultDescription.textContent = 'У вас тяжелая форма депрессии. Немедленно обратитесь к врачу!';
+    }
 
 }
 
-// Перезапуск теста
+// Функция для перезапуска теста
 function restartTest() {
- // сбросить ответы и счетчик
- for(let key in answers){ delete answers[key];}
- totalScore=0;
+    // Сбрасываем ответы
+    for (let key in answers) {
+        delete answers[key];
+    }
+    totalScore = 0;
+    currentQuestionNumber = 1;
 
- // скрыть результаты
- document.getElementById('result-container').style.display='none';
+    // Скрываем контейнер с результатами
+    document.getElementById('result-container').style.display = 'none';
 
- // показать первый вопрос
- document.querySelector('.question-container.active')?.classList.remove('active');
- document.getElementById('question1').classList.add('active');
+    // Отображаем первый вопрос
+    document.querySelectorAll('.question-container').forEach(question => question.style.display = 'block');
+    document.getElementById('question1').classList.add('active');
 
- // обновить прогрессбар
- updateProgress(1);
+    // Показываем нижнюю панель навигации
+    document.querySelector('.bottom-nav').style.display = 'flex';
+
+    // Обновляем прогресс
+    updateProgress(1);
+    hideBackButton();
 }
- 
+
+// Функция для отображения кнопки "Назад"
+function showBackButton() {
+    document.getElementById('global-back-btn').style.display = 'block';
+}
+
+// Функция для скрытия кнопки "Назад"
+function hideBackButton() {
+    document.getElementById('global-back-btn').style.display = 'none';
+}
+
 // Инициализация прогресса при загрузке страницы
 updateProgress(1);
+hideBackButton(); // Скрываем кнопку "Назад" при загрузке страницы
+
 </script>
 
 </body>
