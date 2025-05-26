@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест на уровень депрессии</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- Подключение шрифта Comfortaa -->
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet" />
+
+<!-- Внешний CSS -->
+<link rel="stylesheet" href="style.css" />
+    <style>
+        .question-container {
+            margin-bottom: 20px;
+            display: none;
+        }
+.question-container.active {
+    display: flex; /* делаем флекс-контейнер */
+    justify-content: center; /* горизонтальное выравнивание */
+    align-items: center; /* вертикальное выравнивание */
+    flex-direction: column; /* чтобы внутри было вертикальное расположение элементов, если нужно */
+}
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            
+        }
+.option {
+    margin: 15px 0;
+    width: 345px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 45px;
+    cursor: pointer;
+    display: flex; /* для центрирования */
+    align-items: center; /* вертикальное центрирование */
+    justify-content: center; /* горизонтальное центрирование */
+    font-size: 20px; /* размер шрифта */
+    padding: 0 20px; /* внутренние отступы для текста */
+    box-sizing: border-box; /* чтобы padding учитывался в ширине/высоте */
+    text-align: center; /* выравнивание текста по центру */
+    overflow-wrap: break-word; /* перенос длинных слов */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+        .option:hover {
+         background-color : rgba(144,128,208,1);
+        }
+        .option input {
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            cursor: pointer;
+        }
+        button {
+            padding: 12px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+                width: 210px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.5);
+        }
+        button:hover {
+            background: #45a049;
+        }
+            /* Стиль для кнопки "Назад" */
+ .back-button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius:45px;
+            cursor:pointer;
+            color: black; /* Цвет текста кнопки "Назад" */
+         align-self: flex-start; /* Это выравнивает кнопку по левому краю */
+    margin-left: 0; /* Убираем стандартный отступ слева */
+}
+.back-button:hover {
+  background-color : rgba(144,128,208,1);
+}
+        #result-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .result-score {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .diagnosis {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .mild {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+        .moderate {
+            background-color: #FFE0A3;
+            color: #D35400;
+        }
+        .severe {
+            background-color: #F8D7DA;
+            color: #721C24;
+        }
+        .progress-bar {
+            height: 5px;
+            background: #e0e0e0;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .progress {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .option-text {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(100% - 30px);
+        }
+        /* Нижняя панель с иконками без фона */
+.bottom-nav {
+  display:flex; 
+  justify-content:space-around; 
+  align-items:center; 
+  width:100%; 
+  position:fixed; 
+  bottom:0; 
+  left:0; 
+  right:0; 
+  background:transparent; /* прозрачный фон */
+  padding:10px 0;
+}
+
+/* Кнопки-иконки */
+.icon-btn {
+   background:none; 
+   border:none; 
+   cursor:pointer; 
+   padding:10px; 
+   font-size:24px; 
+   color:#333; 
+   transition:.2s all ease-in-out;
+}
+
+.icon-btn:hover,
+.icon-btn :active { /* можно оставить так для эффекта наведения и нажатия одновременно */   
+   background-color : rgba(144,128,208,1);
+}
+    </style>
+</head>
+<body>
+<div class="progress-bar">
+    <div class="progress" id="progress"></div>
+</div>
+
+<!-- Нижняя панель с иконками без фона -->
+<div class="bottom-nav">
+ <button class="icon-btn"><i class="fas fa-cog"></i></button>
+ <button class="icon-btn"><i class="fas fa-search"></i></button>
+ <button class="icon-btn"><i class="fas fa-user"></i></button>
+</div>
+
+<!-- Контейнеры с вопросами -->
+<div id="question1" class="question-container active">
+   <div class="question">1. Я не чувствую себя расстроенным, печальным.</div>
+   <div class="option" onclick="selectAnswer(1,0)">0 - Я не чувствую себя расстроенным, печальным.</div>
+   <div class="option" onclick="selectAnswer(1,1)">1 - Я расстроен.</div>
+   <div class="option" onclick="selectAnswer(1,2)">2 - Я все время расстроен и не могу от этого отключиться.</div>
+   <div class="option" onclick="selectAnswer(1,3)">3 - Я настолько расстроен и несчастлив, что не могу это выдержать.</div>
+</div>
+
+<div id="question2" class="question-container">
+   <div class="question">2. Я не тревожусь о своем будущем.</div>
+   <div class='option' onclick='selectAnswer(2,0)'>0 - Я не тревожусь о своем будущем.</div>
+   <div class='option' onclick='selectAnswer(2,1)'>1 - Я чувствую, что озадачен будущим.</div>
+   <div class='option' onclick='selectAnswer(2,2)'>2 - Я чувствую, что меня ничего не ждет в будущем.</div>
+   <div class='option' onclick='selectAnswer(2,3)'>3 - Мое будущее безнадежно, и ничто не может измениться к лучшему.</div>   
+</div>
+<div id="question3" class="question-container">
+   <div class="question">3. Я не чувствую себя неудачником.</div>
+   <div class='option' onclick= 'selectAnswer(3,0)'>0 - Я не чувствую себя неудачником.</div>
+   <div class='option' onclick= 'selectAnswer(3,1)'>1 - Я чувствую, что терпел больше неудач, чем другие люди</div>
+   <div class='option' onclick= 'selectAnswer(3,2)'>2 - Когда я оглядываюсь на свою жизнь, я вижу в ней много неудач</div>
+   <div class='option' onclick= 'selectAnswer(3,3)'>3 - Я чувствую, что как личность я — полный неудачник.</div> 
+</div>
+<!-- Контейнер с результатами -->
+<div id='result-container' style='display:none;'>
+<h2>Результаты теста</h2>
+<div class='result-score'>Ваш результат: <span id='total-score'>0</span> баллов</div>
+<div class='diagnosis' id='diagnosis-text'>Результат</div>
+<p id='result-description'>Описание результата</p>
+<button onclick='restartTest()'>Пройти тест снова</button>
+</div>
+<button class='back-button' id='global-back-btn' style='display:none;' onclick='goBack()'>Назад</button>
+<script>
+// Объект для хранения ответов
+const answers = {};
+let totalScore = 0;
+let currentQuestionNumber = 1; // Текущий номер вопроса
+const totalQuestions = document.querySelectorAll('.question-container').length; // Общее кол-во вопросов
+
+// Функция для обновления прогресса
+function updateProgress(questionNumber) {
+    const progressPercent = (questionNumber - 1) / totalQuestions * 100;
+    document.getElementById('progress').style.width = progressPercent + '%';
+}
+
+// Функция для выбора ответа
+function selectAnswer(questionNumber, answerValue) {
+    answers[questionNumber] = answerValue;
+    showNextQuestion(questionNumber); // Переход к следующему вопросу после выбора ответа
+}
+
+// Функция для отображения следующего вопроса
+function showNextQuestion(currentQuestionNumber) {
+    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+    const nextQuestionNumber = currentQuestionNumber + 1;
+    const nextQuestion = document.getElementById(`question${nextQuestionNumber}`);
+
+    if (nextQuestion) {
+        currentQuestion.classList.remove('active');
+        nextQuestion.classList.add('active');
+        updateProgress(nextQuestionNumber);
+        showBackButton(); // Показываем кнопку "Назад"
+    } else {
+        // Если вопросов больше нет, отображаем результаты
+        showResults();
+    }
+}
+
+// Функция для возврата к предыдущему вопросу
+function goBack() {
+    const currentQuestion = document.getElementById(`question${currentQuestionNumber}`);
+    const previousQuestionNumber = currentQuestionNumber - 1;
+    const previousQuestion = document.getElementById(`question${previousQuestionNumber}`);
+
+    if (previousQuestion) {
+        currentQuestion.classList.remove('active');
+        previousQuestion.classList.add('active');
+        updateProgress(previousQuestionNumber);
+        currentQuestionNumber = previousQuestionNumber;
+
+        // Скрываем кнопку "Назад", если вернулись к первому вопросу
+        if (currentQuestionNumber === 1) {
+            hideBackButton();
+        }
+    }
+}
+
+// Функция для отображения результатов
+function showResults() {
+    // Скрываем все вопросы
+    const questions = document.querySelectorAll('.question-container');
+    questions.forEach(question => question.style.display = 'none');
+
+    // Скрываем нижнюю панель навигации
+    document.querySelector('.bottom-nav').style.display = 'none';
+    hideBackButton();
+
+    // Вычисляем общий балл
+    totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+
+    // Отображаем контейнер с результатами
+    document.getElementById('result-container').style.display = 'block';
+    document.getElementById('total-score').textContent = totalScore;
+
+    // Выводим диагноз и описание
+    const diagnosisText = document.getElementById('diagnosis-text');
+    const resultDescription = document.getElementById('result-description');
+
+    // Логика определения диагноза и описания
+    if (totalScore <= 9) {
+        diagnosisText.textContent = 'Отсутствие или минимальная депрессия';
+        resultDescription.textContent = 'У вас нет признаков депрессии или они минимальны.';
+    } else if (totalScore <= 16) {
+        diagnosisText.textContent = 'Легкая депрессия';
+        resultDescription.textContent = 'У вас легкая форма депрессии. Рекомендуется обратить внимание на свое состояние и обратиться к специалисту, если симптомы ухудшатся.';
+    } else if (totalScore <= 23) {
+        diagnosisText.textContent = 'Умеренная депрессия';
+        resultDescription.textContent = 'У вас умеренная форма депрессии. Рекомендуется обратиться к врачу для консультации и возможного лечения.';
+    } else if (totalScore <= 30) {
+        diagnosisText.textContent = 'Выраженная депрессия';
+        resultDescription.textContent = 'У вас выраженная форма депрессии. Необходима консультация врача и, возможно, медикаментозное лечение.';
+    } else {
+        diagnosisText.textContent = 'Тяжелая депрессия';
+        resultDescription.textContent = 'У вас тяжелая форма депрессии. Немедленно обратитесь к врачу!';
+    }
+
+}
+
+// Функция для перезапуска теста
+function restartTest() {
+    // Сбрасываем ответы
+    for (let key in answers) {
+        delete answers[key];
+    }
+    totalScore = 0;
+    currentQuestionNumber = 1;
+
+    // Скрываем контейнер с результатами
+    document.getElementById('result-container').style.display = 'none';
+
+    // Отображаем первый вопрос
+    document.querySelectorAll('.question-container').forEach(question => question.style.display = 'block');
+    document.getElementById('question1').classList.add('active');
+
+    // Показываем нижнюю панель навигации
+    document.querySelector('.bottom-nav').style.display = 'flex';
+
+    // Обновляем прогресс
+    updateProgress(1);
+    hideBackButton();
+}
+
+// Функция для отображения кнопки "Назад"
+function showBackButton() {
+    document.getElementById('global-back-btn').style.display = 'block';
+}
+
+// Функция для скрытия кнопки "Назад"
+function hideBackButton() {
+    document.getElementById('global-back-btn').style.display = 'none';
+}
+
+// Инициализация прогресса при загрузке страницы
+updateProgress(1);
+hideBackButton(); // Скрываем кнопку "Назад" при загрузке страницы
+
+</script>
+
+</body>
